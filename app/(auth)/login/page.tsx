@@ -10,7 +10,6 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import AuthSignupButton from "@/app/components/AuthSignupButton";
-import { useEffect } from "react";
 
 
 interface IFormData {
