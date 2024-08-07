@@ -1,4 +1,10 @@
 import "./globals.css";
+import { Toaster } from 'react-hot-toast';
+
+export const metadata = {
+  title: "Dev Links App",
+  description: "Dev Links",
+};
 
 export default function RootLayout({
   children,
@@ -15,7 +21,10 @@ export default function RootLayout({
           sizes="<generated>"
         />
       </head>
-      <body className="font-instrument-sans">{children}</body>
+      <body className="font-instrument-sans">
+        {children}
+        <Toaster />
+      </body>
     </html>
   );
 }
