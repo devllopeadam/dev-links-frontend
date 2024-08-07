@@ -1,22 +1,37 @@
-import * as React from "react";
 
 import { cn } from "@/app/lib/utils";
+import * as React from "react";
+import Image from "next/image";
+import {motion} from "framer-motion";
 
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+export interface InputProps 
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+    label: string;
+    icon: string;
+    error: string;
+  }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
+  ({ className, label, icon, error, type, ...props }, ref) => {
     return (
-      <input
-        type={type}
-        className={cn(
-          "flex h-9 w-full rounded-md border border-input bg-transparent px-4 py-6 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
-          className
-        )}
-        ref={ref}
-        {...props}
-      />
+      <div className="relative w-full flex flex-col gap-2">
+        <label className={cn("text-gray-800 text-[12px]", {'text-red-500': error})}>{label}</label>
+        <div className="flex items-center relative">
+          <Image className="absolute left-[14px]" src={icon} alt={icon} width={16} height={16}/>
+          <input
+            type={type}
+            className={cn(
+              "pl-11 flex h-12 w-full rounded-lg border border-input focus-visible:border-transparent bg-transparent py-2 text-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[15px]  placeholder:text-accent-gray/60 focus-visible:outline-none focus-visible:ring-[1.5px] focus-visible:ring-[#633cff] disabled:cursor-not-allowed disabled:opacity-50",
+              className,  {
+                'border-red-500 ring-red-500 focus-visible:ring-1 focus-visible:ring-red-500': error,
+              },
+            )}
+            ref={ref}
+            {...props}
+          />
+          {error && <motion.span initial={{opacity: 0, scale: 0.8}} animate={{opacity: 1, scale: 1}} className="absolute text-[14px] text-red-500 font-medium right-3">{error}</motion.span>}
+        </div>
+      </div>
     );
   }
 );

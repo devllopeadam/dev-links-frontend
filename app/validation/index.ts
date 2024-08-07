@@ -1,0 +1,14 @@
+import * as yup from "yup";
+
+export const loginSchema = yup
+  .object({
+    email: yup
+    .string()
+    .required("Can't be empty")
+    .email("Invalid email Format"),
+    password: yup
+      .string()
+      .required("Can't be empty")
+      .min(4, "At least 4 characters"),
+  })
+  .required();
