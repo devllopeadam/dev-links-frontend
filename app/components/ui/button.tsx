@@ -12,18 +12,18 @@ const buttonVariants = cva(
         default:
           "bg-accent-purple text-primary-foreground shadow hover:bg-accent-purple/90",
         destructive:
-          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
-        outline:
           "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
+        outline:
+          "border border-accent-purple bg-background hover:bg-accent-purple/10 text-accent-purple",
         secondary:
-          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
+          "bg-accent-purple/10 text-accent-purple",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
         default: "h-11 px-4 py-3",
         sm: "h-8 rounded-md px-3 text-xs",
-        lg: "h-10 rounded-md px-8",
+        lg: "h-12 rounded-md px-8",
         icon: "h-9 w-9",
       },
     },
@@ -41,8 +41,7 @@ export interface ButtonProps
   isLoading?: boolean,
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, isLoading, children, size, asChild = false, ...props }, ref) => {
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({ className, variant, isLoading, children, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
     return (
       <button

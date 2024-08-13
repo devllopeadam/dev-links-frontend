@@ -12,5 +12,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/'] // This will protect all pages except API routes and static files
+  matcher: ["/links", "/preview"], // This will protect all pages except API routes and static files
 };
