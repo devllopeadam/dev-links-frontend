@@ -5,7 +5,7 @@ import { loginSchema } from "@/app/validation";
 import { LOGIN_FORM } from "@/app/constants";
 import { Input } from "@/app/components/ui/input";
 import { Button } from "@/app/components/ui/button";
-import { signIn } from "next-auth/react"
+import { signIn, useSession } from "next-auth/react"
 import toast from "react-hot-toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -56,7 +56,7 @@ export default function Login() {
         },
       });
       setTimeout(() => {
-        router.push("/");
+        router.push("/links");
       }, 300);
     }
   }
@@ -73,6 +73,7 @@ export default function Login() {
               return (
                 <Input
                   key={i}
+                  id={e.name}
                   error={errors[e.name]?.message!}
                   {...e}
                   {...register(e.name)}

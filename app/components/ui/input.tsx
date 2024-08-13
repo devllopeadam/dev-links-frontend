@@ -15,9 +15,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, label, icon, error, type, ...props }, ref) => {
     return (
       <div className="relative w-full flex flex-col gap-2">
-        <label className={cn("text-gray-800 text-[12px]", {'text-red-500': error})}>{label}</label>
+        <label htmlFor={props.id} className={cn("text-gray-800 text-[12px]", {'text-red-500': error})}>{label}</label>
         <div className="flex items-center relative">
-          <Image className="absolute left-[14px]" src={icon} alt={icon} width={16} height={16}/>
+          <Image className="absolute left-[14px] fill-current text-accent-gray" src={icon} alt={icon} width={16} height={16}/>
           <input
             type={type}
             className={cn(
