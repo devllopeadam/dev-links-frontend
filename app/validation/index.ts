@@ -30,3 +30,21 @@ export const loginSchema = yup
       .min(6, "At least 6 characters"),
   })
   .required()
+
+
+export const profileSchema = yup
+  .object({
+    firstName: yup
+      .string()
+      .required("Can't be empty")
+      .min(4, "At least 4 characters"),
+    lastName: yup
+      .string()
+      .required("Can't be empty")
+      .min(4, "At least 4 characters"),
+    email: yup
+      .string()
+      .required("Can't be empty")
+      .email("Invalid email Format"),
+  })
+  .required();

@@ -1,4 +1,4 @@
-import { ILoginInput, IRegisterInput } from "../interfaces";
+import { ILoginInput, IProfileInput, IRegisterInput } from "../interfaces";
 
 export const LOGIN_FORM: ILoginInput[] = [
   {
@@ -17,27 +17,48 @@ export const LOGIN_FORM: ILoginInput[] = [
   },
 ];
 
-
 export const REGISTER_FORM: IRegisterInput[] = [
   {
     placeholder: "Username",
     type: "text",
     name: "username",
     label: "Username",
-    icon: "/images/user.svg"
+    icon: "/images/user.svg",
   },
   {
     placeholder: "Email",
     type: "text",
     name: "email",
     label: "Email Adress",
-    icon: "/images/icon-email.svg"
+    icon: "/images/icon-email.svg",
   },
   {
     placeholder: "At least 6 characters",
     type: "password",
     name: "password",
     label: "Password",
-    icon: "/images/icon-password.svg"
+    icon: "/images/icon-password.svg",
+  },
+];
+
+export const PROFILE_FORM: IProfileInput[] = [
+  {
+    placeholder: "eg. John",
+    type: "text",
+    name: "firstName",
+    label: "First name",
+  },
+  {
+    placeholder: "eg. Doe",
+    type: "text",
+    name: "lastName",
+    label: "Last name",
+  },
+  {
+    placeholder: "eg. example@gmail.com",
+    type: "email",
+    name: "email",
+    label: "Email",
+    icon: "/images/icon-password.svg",
   },
 ];

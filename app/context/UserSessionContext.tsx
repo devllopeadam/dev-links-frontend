@@ -1,26 +1,39 @@
 "use client"
-import { Session } from "next-auth";
-import { createContext, useContext, useEffect, useState } from "react";
 
-interface UserSessionContextType {
-  userSession: Session | null;
-  setUserSession: React.Dispatch<React.SetStateAction<Session | null>>;
+import { createContext, useContext, useEffect, useState } from "react"
+import { getCookies } from "../cookies";
+
+interface IUserSession {
+  jwt: string,
+  userId: string,
+}
+interface IUserSessionContext {
+  userSession: IUserSession,
+  setUserSession: React.Dispatch<React.SetStateAction<IUserSession>>;
 }
 
-const userSessionContext = createContext<UserSessionContextType | undefined>(undefined);
+const userSessionContext = createContext<IUserSessionContext | undefined>(undefined);
+
 
 const useUserSession = () => {
   const context = useContext(userSessionContext);
   if (!context) {
-    throw new Error("useUserSession must be used within a UserSessionProvider");
+    throw new Error("useUserData must be used within a UserDataContext");
   }
   return context;
-};
+}
+
 
 const UserSessionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [userSession, setUserSession] = useState<Session | null>(null);
-
+  const [userSession, setUserSession] = useState<IUserSession>({ jwt: "", userId: "" });
   const values = { userSession, setUserSession };
+
+  useEffect(() => {
+    getCookies().then(cookies => {
+      setUserSession(prev => ({ ...prev, jwt: cookies[0].value, userId: cookies[1].value }))
+    });
+  }, [])
+
 
   return (
     <userSessionContext.Provider value={values}>
@@ -28,7 +41,5 @@ const UserSessionProvider: React.FC<{ children: React.ReactNode }> = ({ children
     </userSessionContext.Provider>
   )
 }
-
-
 
 export { UserSessionProvider, useUserSession };

@@ -1,4 +1,3 @@
-import { UserSessionProvider } from "./context/UserSessionContext";
 import "./globals.css";
 import { Toaster } from 'react-hot-toast';
 
@@ -22,10 +21,8 @@ export default function RootLayout({
           sizes="<generated>"
         />
       </head>
-      <body className="font-instrument-sans">
-        <UserSessionProvider>
-          {children}
-        </UserSessionProvider>
+      <body className="font-sans">
+        {children}
         <Toaster />
       </body>
     </html>
