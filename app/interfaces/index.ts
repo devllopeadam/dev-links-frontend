@@ -14,6 +14,14 @@ export interface IRegisterInput {
   name: "email" | "username" | "password";
 }
 
+export interface IProfileInput {
+  placeholder: string;
+  label: string;
+  type: string;
+  icon?: string;
+  name: "firstName" | "lastName" | "email";
+}
+
 export interface IErrorResponse {
   error: {
     details?: {
