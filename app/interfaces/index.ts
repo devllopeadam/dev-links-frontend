@@ -32,3 +32,43 @@ export interface IErrorResponse {
     message?: string;
   };
 }
+
+export interface IPlatform {
+  icon: string;
+  name: Platform;
+  defaultValue: string;
+}
+
+export type Link = {
+  id: number;
+  platform: Platform;
+  link: string;
+};
+
+export type User = {
+  id?: string | null;
+  image?: string | null;
+  firstName?: string | null;
+  lastName?: string;
+  email?: string | null;
+};
+
+export interface IUserData {
+  user: User;
+  links: Link[];
+}
+
+export type Platform =
+  | "Github"
+  | "Frontend Mentor"
+  | "Twitter"
+  | "LinkedIn"
+  | "Youtube"
+  | "Facebook"
+  | "Twitch"
+  | "Codewars"
+  | "FreeCodeCamp"
+  | "GitLab"
+  | "Hashnode"
+  | "Dev.To"
+  | "Stack Overflow";

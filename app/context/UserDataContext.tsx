@@ -1,23 +1,6 @@
 "use client";
 import React, { createContext, useContext, useState } from "react";
-
-export type Link = {
-  url: string;
-  name: string;
-};
-
-export type User = {
-  id?: string | null;
-  image?: string | null;
-  firstName?: string | null;
-  lastName?: string;
-  email?: string | null;
-}
-
-interface IUserData {
-  user?: User;
-  links?: Link[];
-}
+import { IUserData } from "../interfaces";
 
 interface IUserDataContext {
   userData: IUserData | null;
@@ -35,7 +18,15 @@ const useUserData = () => {
 }
 
 const UserDataProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [userData, setUserData] = useState<IUserData | null>(null);
+  const [userData, setUserData] = useState<IUserData | null>({
+    user: {
+      id: "",
+      image: "",
+      firstName: "",
+      lastName: "",
+      email: ""
+    }, links: []
+  });
   const values = { userData, setUserData };
 
   return (

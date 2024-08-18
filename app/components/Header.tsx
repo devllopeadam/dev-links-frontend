@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation'
 import { Button } from "./ui/button";
 import { isActive } from "../(user)/layout";
 import { logout } from "../cookies";
+import { useRouter } from "next/navigation";
 
 
 const centerHeaderLinks = [
@@ -19,6 +20,7 @@ const centerHeaderLinks = [
 
 const Header = () => {
   const pathname = usePathname();
+  const router = useRouter();
   return (
     <header className="flex items-center justify-between bg-white p-4 rounded-xl shadow-sm col-span-2">
       <Link href={"/links"}>
@@ -63,7 +65,10 @@ const Header = () => {
                   <span className="sm:block hidden">Preview</span>
                 </Button>
               </Link>
-              <Button onClick={() => logout()} size={"lg"} className="px-4 md:px-4 h-11 rounded-lg flex items-center gap-2">
+              <Button onClick={() => {
+                logout();
+                router.push("/login");
+              }} size={"lg"} className="px-4 md:px-4 h-11 rounded-lg flex items-center gap-2">
                 <IconLogout className=" w-[21px] h-[20px] fill-current" />
                 <span className="sm:block hidden">Logout</span>
               </Button>
@@ -72,7 +77,10 @@ const Header = () => {
               <Link href={"/preview"}>
                 <Button size={"lg"} className="px-6 h-11 rounded-lg">Share Link</Button>
               </Link>
-              <Button onClick={() => logout()} size={"lg"} variant={'outline'} className="px-4 md:px-4 h-11 rounded-lg flex items-center gap-2">
+              <Button onClick={() => {
+                logout();
+                router.push("/login");
+              }} size={"lg"} variant={'outline'} className="px-4 md:px-4 h-11 rounded-lg flex items-center gap-2">
                 <IconLogout className=" w-[21px] h-[20px] fill-current" />
                 <span className="sm:block hidden">Logout</span>
               </Button>

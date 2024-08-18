@@ -1,29 +1,28 @@
-import React, { useEffect } from 'react';
-import { Link, useUserData } from '../context/UserDataContext';
+import React from 'react';
+import { useUserData } from '../context/UserDataContext';
 import { motion } from 'framer-motion';
-
-type SocialLinkProps = {
-  link: Link;
-};
-
-const SocialLink: React.FC<SocialLinkProps> = ({ link }) => {
-  return (
-    <a href={link.url} className="mx-auto h-[44px] w-[237px]">
-      {link.name}
-    </a>
-  );
-};
+import PhoneLink from './PhoneLink';
+import { getIconForPlatform } from '../constants';
+import { ScrollArea } from './ui/scroll-area';
 
 
 const PhoneReview = () => {
+  const feedAnimation = {
+    intial: {
+      opacity: 0,
+      y: 50,
+    },
+    animate: (index: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: 0.05 * index,
+      },
+    }),
+  };
   const { userData } = useUserData();
-
-  useEffect(() => {
-    console.log(userData?.user?.image)
-  }, [])
-
   return (
-    <svg width="308" height="632" fill="none" viewBox="0 0 308 632">
+    <svg width="308" height="632" fill="none" viewBox="0 0 308 632" xmlns="http://www.w3.org/2000/svg">
       <path
         stroke="#737373"
         d="M1 54.5C1 24.953 24.953 1 54.5 1h199C283.047 1 307 24.953 307 54.5v523c0 29.547-23.953 53.5-53.5 53.5h-199C24.953 631 1 607.047 1 577.5v-523Z"
@@ -45,7 +44,7 @@ const PhoneReview = () => {
                 y="0"
                 height="100"
                 width="100"
-                xlinkHref={userData?.user?.image}
+                xlinkHref={userData?.user?.image!}
               />
             </motion.pattern>
           </defs>
@@ -88,28 +87,38 @@ const PhoneReview = () => {
           <rect width="72" height="8" x="117.5" y="214" fill="#EEE" rx="4" />
         )
       }
-
       {/* Links */}
-      {
-        userData?.links
-          ? userData?.links?.map((link, index) => (
-            <motion.foreignObject initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }}
-              key={index}
-              width="100%"
-              height="44"
-              x="0"
-              y={278 + index * 64}
-              rx="4"
-            >
-              <SocialLink link={link} />
-            </motion.foreignObject>
-          ))
-          : <>
-            <rect className='mx-auto' width="80%" height="44" x="30" y="278" fill="#EEE" rx="4" />
-            <rect className='mx-auto' width="80%" height="44" x="30" y="340" fill="#EEE" rx="4" />
-          </>
-      }
-    </svg >
+      <foreignObject
+        x="30"
+        y="260"
+        width="80%"
+        height="320"
+      >
+        <ScrollArea className='h-[295px]'> {/* Match this height to foreignObject height */}
+          {userData?.links.length
+            ? userData?.links?.map((link, index) => (
+              <motion.div
+                variants={feedAnimation}
+                initial="intial"
+                whileInView={"animate"}
+                custom={index}
+                key={link.platform}
+                style={{
+                  height: '47px',
+                  marginBottom: '16px',
+                }}
+              >
+                <PhoneLink icon={getIconForPlatform(link.platform)} {...link} />
+              </motion.div>
+            ))
+            : <>
+              <div style={{ height: '44px', backgroundColor: '#EEE', borderRadius: '4px', marginBottom: '16px' }} />
+              <div style={{ height: '44px', backgroundColor: '#EEE', borderRadius: '4px' }} />
+            </>
+          }
+        </ScrollArea>
+      </foreignObject>
+    </svg>
   );
 };
 

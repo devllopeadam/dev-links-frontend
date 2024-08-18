@@ -1,5 +1,8 @@
 import "./globals.css";
 import { Toaster } from 'react-hot-toast';
+import { UserSessionProvider } from "./context/UserSessionContext";
+import { UserDataProvider } from "./context/UserDataContext";
+
 
 export const metadata = {
   title: "Dev Links App",
@@ -22,7 +25,11 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans">
-        {children}
+        <UserSessionProvider>
+          <UserDataProvider>
+            {children}
+          </UserDataProvider>
+        </UserSessionProvider>
         <Toaster />
       </body>
     </html>

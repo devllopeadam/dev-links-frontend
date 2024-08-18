@@ -8,7 +8,7 @@ export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
     label: string;
   icon?: string;
-    error: string;
+  error?: string;
   className?: string;
   }
 
@@ -22,7 +22,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           <input
             type={type}
             className={cn(
-              "pl-11 pr-4 flex h-12 w-full rounded-lg border border-input focus-visible:border-transparent bg-transparent py-2 text-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[15px]  placeholder:text-accent-gray/60 focus-visible:outline-none focus-visible:ring-[1.5px] focus-visible:ring-[#633cff] disabled:cursor-not-allowed disabled:opacity-50",
+              "pl-11 pr-4 flex h-12 w-full rounded-lg border border-input focus-visible:border-transparent bg-transparen py-2 text-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[15px]  placeholder:text-accent-gray/60 focus-visible:outline-none focus-visible:ring-[1.5px] focus-visible:ring-[#633cff] disabled:cursor-not-allowed disabled:opacity-50",
               className, {
               'pl-4': !icon,
             },

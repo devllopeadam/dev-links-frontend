@@ -7,6 +7,9 @@ import { Button } from "./ui/button";
 import { useUserData } from "../context/UserDataContext";
 import axiosInstance from "../config/axios.config";
 import toast from "react-hot-toast";
+import React from "react";
+import { useRouter } from "next/navigation";
+import { useUserSession } from "../context/UserSessionContext";
 
 interface IFormData {
   firstName: string,
@@ -16,31 +19,32 @@ interface IFormData {
 
 const ProfileForm = () => {
   const { userData, setUserData } = useUserData();
+  const { userSession } = useUserSession();
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({
-    resolver: yupResolver(profileSchema), mode: "onBlur", values: userData as any,
+    resolver: yupResolver(profileSchema), mode: "all", values: userData as any,
   })
 
   const onSubmit: SubmitHandler<IFormData> = async (data) => {
-    console.log(userData?.user?.image);
-    setUserData(prev => ({
-      ...prev,
-      user: {
-        ...prev?.user, // Keep the other properties in user object
-        image: prev?.user?.image,
-        firstName: data?.firstName,
-        lastName: data?.lastName,
-        email: data?.email
-      },
-      links: prev?.links
-    }));
-
     try {
-      const { data: res, status } = await axiosInstance.put(`/users/${userData?.user?.id}`, data);
+      const { status, data: res } = await axiosInstance.put(`/users/${userSession.userId}`, data);
       if (status === 200) {
+        setUserData(prev => ({
+          ...prev,
+          user: {
+            ...prev?.user, // Keep the other properties in user object
+            image: prev?.user?.image,
+            firstName: data?.firstName,
+            lastName: data?.lastName,
+            email: data?.email
+          },
+          links: prev!.links
+        }));
         toast.success("Details Changed successfully", {
           position: "top-center",
           duration: 1500,
@@ -51,6 +55,9 @@ const ProfileForm = () => {
             width: "fit-content",
           },
         });
+        setTimeout(() => {
+          router.push("/preview");
+        }, 600);
       }
     } catch (error) {
       console.log(error)
@@ -58,9 +65,9 @@ const ProfileForm = () => {
   }
 
   return (
-    <div className="p-4 bg-[#fafafa] rounded-md">
+    <>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5 p-5 bg-[#fafafa] rounded-xl mb-10">
           {
             PROFILE_FORM.map((e, i) => {
               return (
@@ -77,9 +84,9 @@ const ProfileForm = () => {
             })
           }
         </div>
-        <Button isLoading={isSubmitting}>Submit</Button>
+        <Button isLoading={isSubmitting} className="self-end px-4 md:px-10">Save</Button>
       </form>
-    </div>
+    </>
   )
 }
 
