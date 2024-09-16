@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { isAuthenticated } from "../cookies";
 import { redirect } from "next/navigation";
+import { UserDataProvider } from "../context/UserDataContext";
 
 
 export default async function AuthLayout({

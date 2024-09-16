@@ -7,37 +7,35 @@ import axiosInstance from "@/app/config/axios.config";
 import { useUserSession } from "@/app/context/UserSessionContext";
 
 const Profile = () => {
-  const { userData, setUserData } = useUserData();
+  const { setUserData } = useUserData();
   const { userSession } = useUserSession();
 
   useEffect(() => {
-    axiosInstance.get(`/users/${userSession.userId}?populate=*`).then((response) => {
+    userSession.userId && axiosInstance.get(`/users/${userSession.userId}?populate=*`).then((response) => {
       const { data, status } = response;
       if (status === 200) {
         setUserData(prev => ({
           ...prev,
           user: {
-            ...prev?.user, // Keep the other properties in user object
-            image: "http://localhost:1337" + data?.imageUrl ?? prev?.user?.image,
-            firstName: data?.firstName,
-            lastName: data?.lastName,
-            email: data?.email ?? prev?.user?.email,
-            id: data?.id,
+            ...prev!.user, // Access user directly since it's required
+            image: data?.imageUrl ? `http://localhost:1337${data.imageUrl}` : prev!.user.image,
+            firstName: data?.firstName ?? prev!.user.firstName,
+            lastName: data?.lastName ?? prev!.user.lastName,
+            email: data?.email ?? prev!.user.email,
+            id: data?.id ?? prev!.user.id,
           },
-          links: prev?.links
+          links: prev!.links
         }));
       }
     })
-  }, []);
+  }, [userSession.userId]);
 
   return (
     <>
       <div className="bg-white rounded-xl shadow-sm lg:flex hidden items-center justify-center py-14">
         <PhoneReview />
       </div>
-      <div className="bg-white p-6 md:p-10 rounded-xl">
-        <ProfileDetailsForm />
-      </div>
+      <ProfileDetailsForm />
     </>
   )
 };

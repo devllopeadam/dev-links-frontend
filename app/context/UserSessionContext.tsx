@@ -29,11 +29,16 @@ const UserSessionProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const values = { userSession, setUserSession };
 
   useEffect(() => {
-    getCookies().then(cookies => {
-      setUserSession(prev => ({ ...prev, jwt: cookies[0].value, userId: cookies[1].value }))
+    getCookies().then((cookies) => {
+      if (cookies && cookies.length >= 2) {
+        setUserSession((prev) => ({
+          ...prev,
+          jwt: cookies[0]?.value || "",
+          userId: cookies[1]?.value || "",
+        }));
+      }
     });
-  }, [])
-
+  }, []);
 
   return (
     <userSessionContext.Provider value={values}>

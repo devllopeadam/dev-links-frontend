@@ -16,14 +16,14 @@ export default function ImageUploader() {
         setUserData(prev => ({
           ...prev,
           user: {
-            ...prev?.user, // Keep the other properties in user object
+            ...prev!.user, // Keep the other properties in user object
             image: reader.result as string,
             firstName: prev?.user?.firstName,
             lastName: prev?.user?.lastName,
             email: prev?.user?.email ?? prev?.user?.email,
             id: prev?.user?.id
           },
-          links: prev?.links
+          links: prev!.links
         }));
         setUrl(reader.result as string);
       };

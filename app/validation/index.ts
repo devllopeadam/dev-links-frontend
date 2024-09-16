@@ -14,7 +14,7 @@ export const loginSchema = yup
   .required();
 
 
-  export const registerSchema = yup
+export const registerSchema = yup
   .object({
     username: yup
       .string()
@@ -29,8 +29,7 @@ export const loginSchema = yup
       .required("Can't be empty")
       .min(6, "At least 6 characters"),
   })
-  .required()
-
+  .required();
 
 export const profileSchema = yup
   .object({
@@ -48,3 +47,9 @@ export const profileSchema = yup
       .email("Invalid email Format"),
   })
   .required();
+
+export const isValidURLWithUsername = (value: string, base: string) => {
+  if (!value.startsWith(base)) return false; // Must start with the base URL
+  const path = value.slice(base.length); // Extract the part after the base URL
+  return path.length > 4 && !path.includes("/") && path !== ""; // Ensure there is some path and it's valid
+};

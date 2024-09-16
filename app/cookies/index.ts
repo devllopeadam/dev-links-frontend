@@ -1,7 +1,6 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 export const fillCookies = (jwt: string, userId: number) => {
   cookies().set({
@@ -26,9 +25,6 @@ export async function isAuthenticated() {
 export const logout = () => {
   cookies().delete("jwt");
   cookies().delete("userId");
-  setTimeout(() => {
-    redirect("/login");
-  }, 500);
 };
 
 export const getCookies = async () => {
