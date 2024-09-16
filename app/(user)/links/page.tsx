@@ -1,5 +1,6 @@
 'use client'
 import AddLink from "@/app/components/AddLink";
+import EmptyLinks from "@/app/components/EmptyLinks";
 import LinksHandler from "@/app/components/LinksHandler";
 import PhoneReview from "@/app/components/PhoneReview";
 import axiosInstance from "@/app/config/axios.config";
@@ -50,7 +51,11 @@ const Links = () => {
           <p className="text-accent-gray">Add/edit/remove links below and then share all your profiles with the world!</p>
         </div>
         <AddLink />
-        <LinksHandler />
+        {
+          userData?.links?.length
+            ? <LinksHandler />
+            : <EmptyLinks />
+        }
       </div>
     </>
   ) : "Loading";

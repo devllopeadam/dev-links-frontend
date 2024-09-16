@@ -215,3 +215,22 @@ export function getIconForPlatform(platform: Platform) {
 
   return icons[platform];
 }
+export function getGrayIconForPlatform(platform: Platform) {
+  const icons = {
+    Github: "/images/icon-github-gray.svg",
+    "Frontend Mentor": "/images/icon-frontend-mentor-gray.svg",
+    Twitter: "/images/icon-twitter-gray.svg",
+    LinkedIn: "/images/icon-linkedin-gray.svg",
+    Youtube: "/images/icon-youtube-gray.svg",
+    Facebook: "/images/icon-facebook-gray.svg",
+    Twitch: "/images/icon-twitch-gray.svg",
+    "Dev.To": "/images/icon-devto-gray.svg",
+    Codewars: "/images/icon-codewars-gray.svg",
+    FreeCodeCamp: "/images/icon-freecodecamp-gray.svg",
+    GitLab: "/images/icon-gitlab-gray.svg",
+    Hashnode: "/images/icon-hashnode-gray.svg",
+    "Stack Overflow": "/images/icon-stack-overflow-gray.svg",
+  };
+
+  return icons[platform];
+}
