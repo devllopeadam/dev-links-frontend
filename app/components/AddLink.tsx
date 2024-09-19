@@ -97,7 +97,7 @@ const AddLink = () => {
           links: [
             ...(prev!.links as Link[]),
             {
-              id: uploadedLink.id,
+              id: uploadedLink.data.id,
               platform: uploadedLink.data.attributes.platform as Platform,
               link: uploadedLink.data.attributes.link,
             }

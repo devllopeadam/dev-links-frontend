@@ -2,7 +2,12 @@ import "./globals.css";
 import { Toaster } from 'react-hot-toast';
 import { UserSessionProvider } from "./context/UserSessionContext";
 import { UserDataProvider } from "./context/UserDataContext";
+import { Instrument_Sans } from 'next/font/google';
 
+
+const instrument = Instrument_Sans({
+  subsets: ['latin'],
+})
 
 export const metadata = {
   title: "Dev Links App",
@@ -24,7 +29,7 @@ export default function RootLayout({
           sizes="<generated>"
         />
       </head>
-      <body className="font-sans">
+      <body className={instrument.className}>
         <UserSessionProvider>
           <UserDataProvider>
             {children}

@@ -1,4 +1,3 @@
-import IconDrag from "@/public/images/icon-drag-and-drop.svg";
 import { Link } from "../interfaces";
 import { useUserData } from "../context/UserDataContext";
 import {
@@ -15,18 +14,25 @@ import toast from "react-hot-toast";
 import { Input } from "./ui/input";
 import { getGrayIconForPlatform } from "../constants";
 import UpdateLink from "./UpdateLink";
+import { useMotionValue, Reorder, useDragControls } from "framer-motion";
+import ReorderIcon from "./IconReorder";
 
-interface IProps extends Link {
+interface IProps {
+  item: Link;
   hashId: number;
-  dragHandleProps?: any;  // Ensure correct type
 }
 
-const CustmizeLink = ({ platform, hashId, link, id, dragHandleProps }: IProps) => {
+const CustmizeLink = ({ item, hashId }: IProps) => {
   const { userData, setUserData } = useUserData();
+  const dragControls = useDragControls();
+  const y = useMotionValue(0);
   const [open, setOpen] = useState(false);
   const [updateOpen, setUpdateOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { id, platform, link } = item;
   const handleRemoveLink = async () => {
     try {
+      setIsLoading(true);
       const { status } = await axiosInstance.delete(`/links/${id}`);
       if (status === 200) {
         const updatedLinks = userData?.links.filter(link => link.id !== id);
@@ -49,6 +55,7 @@ const CustmizeLink = ({ platform, hashId, link, id, dragHandleProps }: IProps) =
         },
       });
       setOpen(false);
+      setIsLoading(false);
     } catch (error) {
       toast.error('Failed to remove the link', {
         position: "top-center",
@@ -63,14 +70,18 @@ const CustmizeLink = ({ platform, hashId, link, id, dragHandleProps }: IProps) =
   }
 
   return (
-    <div className="p-5 bg-[#fafafa] rounded-lg flex flex-col gap-4">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div {...dragHandleProps} className="cursor-grab"> {/* Apply dragHandleProps to a wrapper div */}
-            <IconDrag className="fill-current" />
-          </div>
-          <p className="text-accent-gray font-semibold">Link <span className="font-bold">#{hashId}</span></p>
-        </div>
+    <Reorder.Item
+      value={item}
+      id={item.id.toString()}
+      style={{ y }}
+      dragListener={false}
+      dragControls={dragControls}
+      className="p-5 bg-[#fafafa] rounded-lg flex flex-col gap-4 select-none">
+      <div className="flex items-center gap-2">
+        <ReorderIcon
+          onPointerDown={(e) => dragControls.start(e)}
+          className="w-5 h-5" />
+        <p className="text-accent-gray font-semibold">Link <span className="font-bold">#{hashId}</span></p>
       </div>
       <div className="flex flex-col gap-4">
         <Input disabled={false} label="Platform" className="[&>div>input]:bg-white focus-visible:ring-[#e2e8f0]" icon={getGrayIconForPlatform(platform)} value={platform} />
@@ -87,17 +98,17 @@ const CustmizeLink = ({ platform, hashId, link, id, dragHandleProps }: IProps) =
             <AlertDialogTitle>Do you want to remove this link?</AlertDialogTitle>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <Button variant={'secondary'} onClick={() => setOpen(false)}>No</Button>
-            <Button variant={'destructive'} onClick={handleRemoveLink}>Yes</Button>
+            <Button variant={'secondary'} size={'sm'} onClick={() => setOpen(false)}>No</Button>
+            <Button variant={'destructive'} size={'sm'} onClick={handleRemoveLink} isLoading={isLoading}>Yes</Button>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
       {/* Dialog for update */}
 
       {
-        updateOpen && <UpdateLink updateOpen={updateOpen} setUpdateOpen={setUpdateOpen} link={{ platform, link, id }} />
+        updateOpen && <UpdateLink updateOpen={updateOpen} setUpdateOpen={setUpdateOpen} linkN={{ platform, link, id }} />
       }
-    </div>
+    </Reorder.Item>
   )
 }
 

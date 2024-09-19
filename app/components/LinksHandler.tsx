@@ -1,62 +1,48 @@
+"use client";
+import { useEffect, useState } from "react";
 import { useUserData } from "../context/UserDataContext";
 import CustmizeLink from "./CustmizeLink";
 import { ScrollArea } from "./ui/scroll-area";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { Reorder } from "framer-motion";
+import { Link } from "../interfaces";
 
 const LinksHandler = () => {
   const { userData, setUserData } = useUserData();
+  const [links, setLinks] = useState<Link[]>();
 
-  const handleOnDragEnd = (result: any) => {
-    if (!result.destination) return;
+  useEffect(() => {
+    setLinks(userData?.links);
+  }, [])
 
-    const items = Array.from(userData!.links);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
+  useEffect(() => {
+    if (links) {
+      setTimeout(() => {
+        setUserData(prev => ({
+          ...prev!,
+          user: {
+            ...prev!.user,
+          },
+          links: links!
+        }));
+        // update the links in the backend as well
+      }, 1000);
+    }
+  }, [links]);
 
-    setUserData((prev) => ({
-      ...prev,
-      user: {
-        ...prev!.user,
-      },
-      links: items,
-    }));
-  };
 
-  return (
-    <DragDropContext onDragEnd={handleOnDragEnd}>
-      <Droppable droppableId="links">
-        {(provided) => (
-          <div
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            className="flex flex-col gap-5"
-          >
-            <ScrollArea className='h-[495px]'>
-              {userData?.links.map((x, i) => (
-                <Draggable key={x.platform} draggableId={x.platform} index={i}>
-                  {(provided) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      className="mb-5" // Add margin to separate items if needed
-                    >
-                      <CustmizeLink
-                        link={x.link}
-                        platform={x.platform}
-                        id={x.id}
-                        hashId={i + 1}
-                        dragHandleProps={provided.dragHandleProps} // Pass dragHandleProps
-                      />
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </ScrollArea>
-          </div>
-        )}
-      </Droppable>
-    </DragDropContext>
+
+  return links && (
+    <ScrollArea className='h-[600px]'>
+      <Reorder.Group axis="y" onReorder={setLinks} values={links} className="flex flex-col gap-5">
+        {links.map((x, i) => (
+          <CustmizeLink
+            key={x.id}
+            item={x}
+            hashId={i + 1}
+          />
+        ))}
+      </Reorder.Group>
+    </ScrollArea>
   );
 };
 

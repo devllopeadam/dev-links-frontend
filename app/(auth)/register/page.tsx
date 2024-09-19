@@ -1,15 +1,13 @@
 "use client"
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { loginSchema, registerSchema } from "@/app/validation";
-import { LOGIN_FORM, REGISTER_FORM } from "@/app/constants";
+import { registerSchema } from "@/app/validation";
+import { REGISTER_FORM } from "@/app/constants";
 import { Input } from "@/app/components/ui/input";
 import { Button } from "@/app/components/ui/button";
-import { signIn } from "next-auth/react"
 import toast from "react-hot-toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import AuthSignupButton from "@/app/components/AuthSignupButton";
 import axiosInstance from "@/app/config/axios.config";
 import { AxiosError } from "axios";
 import { IErrorResponse } from "@/app/interfaces";

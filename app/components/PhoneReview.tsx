@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useUserData } from '../context/UserDataContext';
-import { motion } from 'framer-motion';
+import { motion, Reorder } from 'framer-motion';
 import PhoneLink from './PhoneLink';
 import { getIconForPlatform } from '../constants';
 import { ScrollArea } from './ui/scroll-area';
+import { Link } from '../interfaces';
 
 
 const PhoneReview = () => {
@@ -21,6 +22,17 @@ const PhoneReview = () => {
     }),
   };
   const { userData } = useUserData();
+  const [links, setLinks] = useState<Link[]>();
+
+  useEffect(() => {
+    setLinks(userData?.links);
+  }, [userData]);
+
+  const handleReorder = (newOrder: Link[]) => {
+    setLinks(newOrder);
+  };
+
+
   return (
     <svg width="308" height="632" fill="none" viewBox="0 0 308 632" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -44,7 +56,7 @@ const PhoneReview = () => {
                 y="0"
                 height="100"
                 width="100"
-                xlinkHref={userData?.user?.image!}
+                xlinkHref={userData?.user?.image!}  
               />
             </motion.pattern>
           </defs>
@@ -88,36 +100,39 @@ const PhoneReview = () => {
         )
       }
       {/* Links */}
-      <foreignObject
-        x="30"
-        y="260"
-        width="80%"
-        height="320"
-      >
-        <ScrollArea className='h-[295px]'> {/* Match this height to foreignObject height */}
-          {userData?.links.length
-            ? userData?.links?.map((link, index) => (
-              <motion.div
-                variants={feedAnimation}
-                initial="intial"
-                whileInView={"animate"}
-                custom={index}
-                key={link.platform}
-                style={{
-                  height: '47px',
-                  marginBottom: '16px',
-                }}
-              >
-                <PhoneLink icon={getIconForPlatform(link.platform)} {...link} />
-              </motion.div>
-            ))
-            : <>
-              <div style={{ height: '44px', backgroundColor: '#EEE', borderRadius: '4px', marginBottom: '16px' }} />
-              <div style={{ height: '44px', backgroundColor: '#EEE', borderRadius: '4px' }} />
-            </>
+      <foreignObject x="30" y="260" width="80%" height="320">
+        <ScrollArea className='h-[295px]'>
+          {
+            links?.length
+              ? <Reorder.Group
+                axis="y"
+                values={links}
+                onReorder={handleReorder}>
+                {links.map((link, index) => (
+                  <Reorder.Item
+                    key={link.id}
+                    value={link}
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 50 }}
+                    transition={{ delay: 0.05 * index, type: 'spring', stiffness: 300 }}
+                  >
+                    <motion.div
+                      style={{ height: '47px', marginBottom: '16px' }}
+                    >
+                      <PhoneLink icon={getIconForPlatform(link.platform)} {...link} />
+                    </motion.div>
+                  </Reorder.Item>
+                ))}
+              </Reorder.Group>
+              : <>
+                <div style={{ height: '44px', backgroundColor: '#EEE', borderRadius: '4px', marginBottom: '16px' }} />
+                <div style={{ height: '44px', backgroundColor: '#EEE', borderRadius: '4px' }} />
+              </>
           }
         </ScrollArea>
       </foreignObject>
+
     </svg>
   );
 };
