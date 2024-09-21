@@ -5,6 +5,7 @@ import PhoneLink from './PhoneLink';
 import { getIconForPlatform } from '../constants';
 import { ScrollArea } from './ui/scroll-area';
 import { Link } from '../interfaces';
+import DataNotFoundPlaceholder from './DataNotFoundPlaceholder';
 
 
 const PhoneReview = () => {
@@ -112,10 +113,9 @@ const PhoneReview = () => {
                   </Reorder.Item>
                 ))}
               </Reorder.Group>
-              : <>
-                <div style={{ height: '44px', backgroundColor: '#EEE', borderRadius: '4px', marginBottom: '16px' }} />
-                <div style={{ height: '44px', backgroundColor: '#EEE', borderRadius: '4px' }} />
-              </>
+              : <div className="flex flex-col gap-4">
+                {DataNotFoundPlaceholder("links")}
+              </div>
           }
         </ScrollArea>
       </foreignObject>

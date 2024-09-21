@@ -29,7 +29,7 @@ const CustmizeLink = ({ item, hashId }: IProps) => {
   const [open, setOpen] = useState(false);
   const [updateOpen, setUpdateOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { id, platform, link } = item;
+  const { id, platform, link, order } = item;
   const handleRemoveLink = async () => {
     try {
       setIsLoading(true);
@@ -106,7 +106,7 @@ const CustmizeLink = ({ item, hashId }: IProps) => {
       {/* Dialog for update */}
 
       {
-        updateOpen && <UpdateLink updateOpen={updateOpen} setUpdateOpen={setUpdateOpen} linkN={{ platform, link, id }} />
+        updateOpen && <UpdateLink updateOpen={updateOpen} setUpdateOpen={setUpdateOpen} linkN={{ platform, link, order, id }} />
       }
     </Reorder.Item>
   )

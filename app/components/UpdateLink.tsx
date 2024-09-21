@@ -84,6 +84,7 @@ const UpdateLink = ({ updateOpen, setUpdateOpen, linkN }: IProps) => {
               id: l.id,
               platform: updatedLink.data.attributes.platform as Platform,
               link: updatedLink.data.attributes.link,
+              order: updatedLink.data.attributes.order
             }
               : l
           ),  

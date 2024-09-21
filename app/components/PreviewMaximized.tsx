@@ -20,7 +20,7 @@ const PreviewMaximized = ({ isOpen, setIsOpen }: IProps) => {
   const { userData } = useUserData();
   return (
     <AlertDialog open={isOpen} onOpenChange={(isOpen) => setIsOpen(isOpen)}>
-      <AlertDialogContent className="flex flex-col gap-5 max-w-[450px]">
+      <AlertDialogContent className="flex flex-col gap-5 max-w-[450px] outline-none">
         <motion.div
           initial={{ opacity: 0, scale: 0.7 }}
           animate={{ opacity: 1, scale: 1 }}

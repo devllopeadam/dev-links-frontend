@@ -1,5 +1,5 @@
 'use client'
-import { platform_bases, platforms } from "../constants"
+import { getLastOrder, platform_bases, platforms } from "../constants"
 import * as yup from "yup";
 import { Button } from "./ui/button"
 import { useEffect, useMemo, useState } from "react";
@@ -83,7 +83,7 @@ const AddLink = () => {
 
   const onSubmit: SubmitHandler<IFormData> = async ({ link, platform }) => {
     try {
-      const { status, data: uploadedLink } = await axiosInstance.post("/links", { data: { platform, link, user: userSession.userId } }, {
+      const { status, data: uploadedLink } = await axiosInstance.post("/links", { data: { platform, link, order: getLastOrder(userData!) + 1, user: userSession.userId } }, {
         headers: {
           Authorization: `Bearer ${userSession?.jwt}`,
         },
@@ -100,6 +100,7 @@ const AddLink = () => {
               id: uploadedLink.data.id,
               platform: uploadedLink.data.attributes.platform as Platform,
               link: uploadedLink.data.attributes.link,
+              order: getLastOrder(userData!) + 1
             }
           ]
         }));

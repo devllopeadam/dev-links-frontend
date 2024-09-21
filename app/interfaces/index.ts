@@ -43,6 +43,7 @@ export type Link = {
   id: number;
   platform: Platform;
   link: string;
+  order: number;
 };
 
 export type User = {

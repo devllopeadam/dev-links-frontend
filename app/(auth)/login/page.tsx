@@ -45,7 +45,6 @@ export default function Login() {
           },
           links: userLinks
         }));
-        console.log(userData)
       }
     })
   }, [userSession.userId]);
