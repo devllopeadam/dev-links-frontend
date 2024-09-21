@@ -5,15 +5,10 @@ import LinksHandler from "@/app/components/LinksHandler";
 import PhoneReview from "@/app/components/PhoneReview";
 import { useUserData } from "@/app/context/UserDataContext";
 import useFetchUserData from "@/app/hooks/useFetchUserData";
-import { useEffect } from "react";
 
 const Links = () => {
   const { isLoading } = useFetchUserData();
   const { userData } = useUserData();
-
-  useEffect(() => {
-    userData?.user && console.log(userData);
-  }, [userData]);
 
   return (
     <>

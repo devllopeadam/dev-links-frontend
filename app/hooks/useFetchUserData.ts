@@ -22,11 +22,13 @@ const useFetchUserData = () => {
               id: linkData.id,
               platform: linkData.platform as Platform,
               link: linkData.link,
+              order: linkData.order,
             }));
+            userLinks.sort((a, b) => a.order - b.order);
             setUserData((prev) => ({
               ...prev,
               user: {
-                ...prev!.user, // Access user directly since it's required
+                ...prev!.user,
                 image: data?.imageUrl
                   ? `http://localhost:1337${data.imageUrl}`
                   : prev!.user.image,

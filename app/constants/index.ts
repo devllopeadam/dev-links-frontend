@@ -3,6 +3,7 @@ import {
   IPlatform,
   IProfileInput,
   IRegisterInput,
+  IUserData,
   Platform,
 } from "../interfaces";
 
@@ -233,4 +234,9 @@ export function getGrayIconForPlatform(platform: Platform) {
   };
 
   return icons[platform];
+}
+
+export function getLastOrder(userData: IUserData) {
+  const { links } = userData;
+  return links.length ? Math.max(...links.map((link) => link.order)) : 0;
 }
