@@ -12,7 +12,7 @@ const LinksHandler = () => {
 
   useEffect(() => {
     setLinks(userData?.links);
-  }, [])
+  }, [userData])
 
   useEffect(() => {
     if (links) {

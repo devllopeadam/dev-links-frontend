@@ -1,44 +1,10 @@
 'use client'
 import PhoneReview from "@/app/components/PhoneReview";
 import ProfileDetailsForm from "@/app/components/ProfileDetailsForm";
-import { useUserData } from "@/app/context/UserDataContext";
-import { useEffect, useState } from "react";
-import axiosInstance from "@/app/config/axios.config";
-import { useUserSession } from "@/app/context/UserSessionContext";
-import { Link, Platform } from "@/app/interfaces";
+import useFetchUserData from "@/app/hooks/useFetchUserData";
 
 const Profile = () => {
-  const { setUserData } = useUserData();
-  const { userSession } = useUserSession();
-
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    userSession.userId && axiosInstance.get(`/users/${userSession.userId}?populate=*`).then((response) => {
-      const { status, data } = response;
-      if (status === 200) {
-        setIsLoading(false);
-        const userLinks: Link[] = data.links.map((linkData: any) => ({
-          id: linkData.id,
-          platform: linkData.platform as Platform,
-          link: linkData.link,
-        }));
-        setUserData(prev => ({
-          ...prev,
-          user: {
-            ...prev!.user, // Access user directly since it's required
-            image: data?.imageUrl ? `http://localhost:1337${data.imageUrl}` : prev!.user.image,
-            firstName: data?.firstName ?? prev!.user.firstName,
-            lastName: data?.lastName ?? prev!.user.lastName,
-            email: data?.email ?? prev!.user.email,
-            id: data?.id ?? prev!.user.id,
-          },
-          links: userLinks
-        }));
-      }
-    })
-  }, [userSession.userId]);
-
+  const { isLoading } = useFetchUserData();
 
   return (
     <>

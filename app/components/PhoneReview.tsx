@@ -8,19 +8,6 @@ import { Link } from '../interfaces';
 
 
 const PhoneReview = () => {
-  const feedAnimation = {
-    intial: {
-      opacity: 0,
-      y: 50,
-    },
-    animate: (index: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: 0.05 * index,
-      },
-    }),
-  };
   const { userData } = useUserData();
   const [links, setLinks] = useState<Link[]>();
 

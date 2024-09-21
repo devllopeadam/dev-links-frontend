@@ -3,48 +3,23 @@ import AddLink from "@/app/components/AddLink";
 import EmptyLinks from "@/app/components/EmptyLinks";
 import LinksHandler from "@/app/components/LinksHandler";
 import PhoneReview from "@/app/components/PhoneReview";
-import axiosInstance from "@/app/config/axios.config";
 import { useUserData } from "@/app/context/UserDataContext";
-import { useUserSession } from "@/app/context/UserSessionContext";
-import { Link, Platform } from "@/app/interfaces";
-import { useEffect, useState } from "react";
+import useFetchUserData from "@/app/hooks/useFetchUserData";
+import { useEffect } from "react";
 
 const Links = () => {
-  const { userData, setUserData } = useUserData();
-  const { userSession } = useUserSession();
-  const [isLoading, setIsLoading] = useState(true);
+  const { isLoading } = useFetchUserData();
+  const { userData } = useUserData();
 
   useEffect(() => {
-    userSession.userId && axiosInstance.get(`/users/${userSession.userId}?populate=*`).then((response) => {
-      const { status, data } = response;
-      if (status === 200) {
-        setIsLoading(false);
-        const userLinks: Link[] = data.links.map((linkData: any) => ({
-          id: linkData.id,
-          platform: linkData.platform as Platform,
-          link: linkData.link,
-        }));
-        setUserData(prev => ({
-          ...prev,
-          user: {
-            ...prev!.user, // Access user directly since it's required
-            image: data?.imageUrl ? `http://localhost:1337${data.imageUrl}` : prev!.user.image,
-            firstName: data?.firstName ?? prev!.user.firstName,
-            lastName: data?.lastName ?? prev!.user.lastName,
-            email: data?.email ?? prev!.user.email,
-            id: data?.id ?? prev!.user.id,
-          },
-          links: userLinks
-        }));
-      }
-    })
-  }, [userSession.userId]);
+    userData?.user && console.log(userData);
+  }, [userData]);
 
   return (
     <>
       <div className="bg-white hidden rounded-xl shadow-sm lg:flex items-center justify-center py-14">
         {
-          !isLoading ?
+          !isLoading && userData?.user ?
             <PhoneReview />
             : <div className="animate-pulse">
               <div className="w-[308px] h-[632px] bg-gray-200 rounded-[35px]"></div>
@@ -53,7 +28,7 @@ const Links = () => {
       </div>
       <div className="flex flex-col gap-8 bg-white p-6 md:p-8 rounded-xl">
         {
-          !isLoading ?
+          !isLoading && userData?.user ?
             <>
               <div className="flex flex-col gap-2">
                 <h1 className="font-bold text-3xl text-dark-gray">Customize your links</h1>
@@ -65,11 +40,11 @@ const Links = () => {
             <div role="status" className="animate-pulse w-full">
               <div className="h-6 bg-gray-200 rounded-lg dark:bg-gray-700 w-48 mb-5"></div>
               <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-7"></div>
-              <div className="h-11 bg-gray-200 rounded-lg dark:bg-gray-700 w-full  mb-2.5"></div>
+              <div className="h-11 bg-gray-200 rounded-lg dark:bg-gray-700 w-full mb-2.5"></div>
             </div>
         }
         {
-          !isLoading ?
+          !isLoading && userData?.user ?
             (
               userData?.links?.length
                 ? <LinksHandler />

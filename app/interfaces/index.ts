@@ -48,7 +48,7 @@ export type Link = {
 export type User = {
   id?: string | null;
   image?: string | null;
-  firstName?: string | null;
+  firstName?: string;
   lastName?: string;
   email?: string | null;
 };
