@@ -36,7 +36,7 @@ interface IProps {
 
 const UpdateLink = ({ updateOpen, setUpdateOpen, linkN }: IProps) => {
   const { id } = linkN;
-  const { userData, setUserData } = useUserData();
+  const { setUserData } = useUserData();
   const { userSession } = useUserSession();
 
   const platformSchema = useMemo(() =>
@@ -88,7 +88,6 @@ const UpdateLink = ({ updateOpen, setUpdateOpen, linkN }: IProps) => {
               : l
           ),  
         }));
-        console.log(userData);
         toast.success("Link updated successfully", {
           position: "top-center",
           duration: 1000,
@@ -130,8 +129,10 @@ const UpdateLink = ({ updateOpen, setUpdateOpen, linkN }: IProps) => {
             <Input disabled={false} label="Platform" className="[&>div>input]:bg-white focus-visible:ring-[#e2e8f0]" icon={getGrayIconForPlatform(linkN?.platform!)} value={linkN?.platform} />
             <Input placeholder="github.com/devllopeadam/" error={errors["link"]?.message!} {...register("link")} icon={'/images/icon-link.svg'} className="[&>div>input]:h-11" label="Update the link" onChange={(e) => handleInputChange(e.target.value)} />
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <Button isLoading={isSubmitting}>Submit</Button>
+              <AlertDialogCancel className="h-9 rounded-md px-4 text-[13px]">
+                Cancel
+              </AlertDialogCancel>
+              <Button isLoading={isSubmitting} size={'sm'}>Submit</Button>
             </AlertDialogFooter>
           </form>
         </AlertDialogContent>

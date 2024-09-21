@@ -22,7 +22,7 @@ const Header = () => {
   const pathname = usePathname();
   const router = useRouter();
   return (
-    <header className="flex items-center justify-between bg-white p-4 rounded-xl shadow-sm col-span-2">
+    <header className="flex items-center justify-between bg-white p-4 rounded-xl shadow-sm col-span-2 relative z-10">
       <Link href={"/links"}>
         {
           pathname !== "/preview"
