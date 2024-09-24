@@ -1,20 +1,19 @@
 "use client"
-import { SubmitHandler, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { loginSchema } from "@/app/validation";
-import { LOGIN_FORM } from "@/app/constants";
-import { Input } from "@/app/components/ui/input";
 import { Button } from "@/app/components/ui/button";
-import toast from "react-hot-toast";
+import { Input } from "@/app/components/ui/input";
+import axiosInstance from "@/app/config/axios.config";
+import { LOGIN_FORM } from "@/app/constants";
+import { useUserData } from "@/app/context/UserDataContext";
+import { useUserSession } from "@/app/context/UserSessionContext";
+import { fillCookies } from "@/app/cookies";
+import { IErrorResponse } from "@/app/interfaces";
+import { loginSchema } from "@/app/validation";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { AxiosError } from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { AxiosError } from "axios";
-import { IErrorResponse, Platform, Link as TLink } from "@/app/interfaces";
-import axiosInstance from "@/app/config/axios.config";
-import { fillCookies } from "@/app/cookies";
-import { useUserSession } from "@/app/context/UserSessionContext";
-import { useEffect } from "react";
-import { useUserData } from "@/app/context/UserDataContext";
+import { SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 interface IFormData {
   email: string,
@@ -22,32 +21,7 @@ interface IFormData {
 }
 
 export default function Login() {
-  const { userSession, setUserSession } = useUserSession();
-  const { userData, setUserData } = useUserData();
-  useEffect(() => {
-    userSession.userId && axiosInstance.get(`/users/${userSession.userId}?populate=*`).then((response) => {
-      const { status, data } = response;
-      if (status === 200) {
-        const userLinks: TLink[] = data.links.map((linkData: any) => ({
-          id: linkData.id,
-          platform: linkData.platform as Platform,
-          link: linkData.link,
-        }));
-        setUserData(prev => ({
-          ...prev,
-          user: {
-            ...prev!.user, // Access user directly since it's required
-            image: data?.imageUrl ? `http://localhost:1337${data.imageUrl}` : prev!.user.image,
-            firstName: data?.firstName ?? prev!.user.firstName,
-            lastName: data?.lastName ?? prev!.user.lastName,
-            email: data?.email ?? prev!.user.email,
-            id: data?.id ?? prev!.user.id,
-          },
-          links: userLinks
-        }));
-      }
-    })
-  }, [userSession.userId]);
+  const { setUserSession } = useUserSession();
   const router = useRouter();
   const {
     register,
