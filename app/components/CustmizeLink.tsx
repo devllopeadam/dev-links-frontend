@@ -1,22 +1,12 @@
-import { Link } from "../interfaces";
-import { useUserData } from "../context/UserDataContext";
-import {
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "./ui/alert-dialog";
-import { Button } from "./ui/button";
+import { Reorder, useDragControls, useMotionValue } from "framer-motion";
 import { useState } from "react";
-import axiosInstance from "../config/axios.config";
-import toast from "react-hot-toast";
-import { Input } from "./ui/input";
 import { getGrayIconForPlatform } from "../constants";
-import UpdateLink from "./UpdateLink";
-import { useMotionValue, Reorder, useDragControls } from "framer-motion";
+import { Link } from "../interfaces";
+import DeleteLink from "./DeleteLink";
 import ReorderIcon from "./IconReorder";
-import DeleteLinik from "./DeleteLinik";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import UpdateLink from "./UpdateLink";
 
 interface IProps {
   item: Link;
@@ -53,7 +43,7 @@ const CustmizeLink = ({ item, hashId }: IProps) => {
         <Button className="font-semibold" size={'sm'} onClick={() => setUpdateOpen(true)}>Update</Button>
         <Button variant={'destructive'} size={'sm'} className="font-semibold" onClick={() => setOpen(true)}>Remove</Button>
       </div>
-      <DeleteLinik open={open} setOpen={setOpen} id={id} />
+      <DeleteLink open={open} setOpen={setOpen} id={id} />
       <UpdateLink updateOpen={updateOpen} setUpdateOpen={setUpdateOpen} linkN={{ platform, link, order, id }} />
     </Reorder.Item>
   )
