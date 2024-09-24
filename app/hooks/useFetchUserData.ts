@@ -31,10 +31,10 @@ const useFetchUserData = () => {
                 ...prev!.user,
                 image: data?.imageUrl
                   ? `http://localhost:1337${data.imageUrl}`
-                  : prev!.user.image,
-                firstName: data?.firstName ?? prev!.user.firstName,
-                lastName: data?.lastName ?? prev!.user.lastName,
-                email: data?.email ?? prev!.user.email,
+                  : undefined,
+                firstName: data?.firstName ?? "",
+                lastName: data?.lastName ?? "",
+                email: data?.email ?? "",
                 id: data?.id ?? prev!.user.id,
               },
               links: userLinks,

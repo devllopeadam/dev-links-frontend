@@ -22,7 +22,7 @@ const FinalPreview = ({ isLoading }: IProps) => {
     <main className="pt-[50px] flex items-center justify-center mx-auto col-span-2">
       <div className="bg-white flex flex-col gap-7 pb-8 pt-10 px-5 rounded-xl relative z-50 w-[450px] shadow-lg">
         {
-          userData?.links?.length && userData?.user?.email && userData?.user?.firstName && userData?.user?.lastName && userData.user.image
+          userData?.links?.length && userData?.user?.email && userData?.user?.firstName && userData?.user?.lastName
             ? !isLoading &&
             <motion.div
               initial={{ opacity: 0, scale: 0.7 }}
@@ -50,7 +50,7 @@ const FinalPreview = ({ isLoading }: IProps) => {
               : userData?.user.image
                 ? (
                   <div className="flex items-center justify-center p-1 bg-accent-purple rounded-full max-w-[110px] max-h-[110px] mx-auto">
-                    <motion.img initial={{ opacity: 0, scale: 0.7 }} animate={{ opacity: 1, scale: 1 }} src={userData.user.image} alt="User Data" width={105} height={105} className="rounded-full object-contain" />
+                    <motion.img initial={{ opacity: 0, scale: 0.7 }} animate={{ opacity: 1, scale: 1 }} src={userData?.user?.image!} alt="User Data" width={105} height={105} className="rounded-full object-cover max-w-[100px] max-h-[100px]" />
                   </div>
                 ) : DataNotFoundPlaceholder("image")
           }

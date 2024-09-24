@@ -23,16 +23,14 @@ const Header = () => {
   const router = useRouter();
   return (
     <header className="flex items-center justify-between bg-white p-4 rounded-xl shadow-sm col-span-2 relative z-10">
-      <Link href={"/links"}>
-        {
-          pathname !== "/preview"
-            ? <>
-              <Image src="/images/logo-devlinks-large.svg" width={145} height={50} alt="Dev Links Logo" className="hidden sm:block md:w-[145px] w-[135px]" />
-              <Image src="/images/logo-devlinks-small.svg" width={35} height={50} alt="Dev Links Logo" className="sm:hidden block" />
-            </>
-            : <Button size={"lg"} variant={'outline'} className="px-6 h-11 rounded-lg">Back to Editor</Button>
-        }
-      </Link>
+      {
+        pathname !== "/preview"
+          ? <Link href={"/links"}>
+            <Image src="/images/logo-devlinks-large.svg" width={145} height={50} alt="Dev Links Logo" className="hidden sm:block md:w-[145px] w-[135px]" />
+            <Image src="/images/logo-devlinks-small.svg" width={35} height={50} alt="Dev Links Logo" className="sm:hidden block" />
+          </Link>
+          : <Button onClick={() => router.back()} size={"lg"} variant={'outline'} className="px-4 max-sm:text-[14px] sm:px-6 h-11 rounded-lg">Back to Editor</Button>
+      }
       {
         pathname !== "/preview" &&
         <div className="flex items-center">
@@ -75,7 +73,7 @@ const Header = () => {
             </>
             : <>
               <Link href={"/preview"}>
-                <Button size={"lg"} className="px-6 h-11 rounded-lg">Share Link</Button>
+                <Button size={"lg"} className="px-4 max-sm:text-[14px] sm:px-6 h-11 rounded-lg">Share Link</Button>
               </Link>
               <Button onClick={() => {
                 logout();
