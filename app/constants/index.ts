@@ -44,7 +44,7 @@ export const REGISTER_FORM: IRegisterInput[] = [
     type: "text",
     name: "username",
     label: "Username",
-    icon: "/images/user.svg",
+    icon: "/images/icon-user.svg",
   },
   {
     placeholder: "Email",
