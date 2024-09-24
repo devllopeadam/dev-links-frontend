@@ -36,8 +36,8 @@ const CustmizeLink = ({ item, hashId }: IProps) => {
         <p className="text-accent-gray font-semibold">Link <span className="font-bold">#{hashId}</span></p>
       </div>
       <div className="flex flex-col gap-4">
-        <Input disabled={false} label="Platform" className="[&>div>input]:bg-white focus-visible:ring-[#e2e8f0]" icon={getGrayIconForPlatform(platform)} value={platform} />
-        <Input disabled={false} label="Link" className="[&>div>input]:bg-white focus-visible:ring-[#e2e8f0]" icon={"/images/icon-link.svg"} value={link} />
+        <Input disabled={false} readOnly label="Platform" className="[&>div>input]:bg-white focus-visible:ring-[#e2e8f0]" icon={getGrayIconForPlatform(platform)} value={platform} />
+        <Input disabled={false} readOnly label="Link" className="[&>div>input]:bg-white focus-visible:ring-[#e2e8f0]" icon={"/images/icon-link.svg"} value={link} />
       </div>
       <div className="flex items-center gap-2 self-end">
         <Button className="font-semibold" size={'sm'} onClick={() => setUpdateOpen(true)}>Update</Button>

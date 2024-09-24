@@ -89,11 +89,9 @@ export default function Login() {
             })}
           <Button isLoading={isSubmitting}>Log in</Button>
         </div>
-        <div className="flex flex-col gap-4">
-          <div className="flex items-center justify-center gap-1">
-            <p className="text-accent-gray font-">Don't have an account?</p>
-            <Link href={"/register"} className="text-accent-purple font-">Create an account</Link>
-          </div>
+        <div className="flex items-center justify-center gap-1 max-sm:text-[15px]">
+          <p className="text-accent-gray text-nowrap">Don't have an account?</p>
+          <Link href={"/register"} className="text-accent-purple text-nowrap">Create an account</Link>
         </div>
       </form>
     </div>

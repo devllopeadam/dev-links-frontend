@@ -8,8 +8,13 @@ import IconLogout from "@/public/images/icon-logout.svg";
 import { usePathname } from 'next/navigation'
 import { Button } from "./ui/button";
 import { isActive } from "../(user)/layout";
-import { logout } from "../cookies";
+import { isAuthenticated, logout } from "../cookies";
 import { useRouter } from "next/navigation";
+import { useUserSession } from "../context/UserSessionContext";
+import { useUserData } from "../context/UserDataContext";
+import toast from "react-hot-toast";
+import useProfileReady from "../hooks/useProfileReady";
+import { useCallback, useEffect, useState } from "react";
 
 
 const centerHeaderLinks = [
@@ -21,6 +26,31 @@ const centerHeaderLinks = [
 const Header = () => {
   const pathname = usePathname();
   const router = useRouter();
+  const { userData } = useUserData();
+  const { ready } = useProfileReady()
+  const [logged, setLogged] = useState(false);
+
+  useEffect(() => {
+    isAuthenticated().then(x => setLogged(x));
+  }, [])
+
+  const hanldeSharingButton = useCallback(() => {
+    if (ready) {
+      router.push(`profiles/${userData?.user.id}`);
+    } else {
+      toast.error('fill out your necessary info and at least one link', {
+        position: "top-center",
+        duration: 2000,
+        style: {
+          backgroundColor: "white",
+          color: "black",
+          width: "fit-content",
+          textAlign: "center",
+        },
+      });
+    }
+  }, [ready])
+
   return (
     <header className="flex items-center justify-between bg-white p-4 rounded-xl shadow-sm col-span-2 relative z-10">
       {
@@ -32,7 +62,7 @@ const Header = () => {
           : <Button onClick={() => router.back()} size={"lg"} variant={'outline'} className="px-4 max-sm:text-[14px] sm:px-6 h-11 rounded-lg">Back to Editor</Button>
       }
       {
-        pathname !== "/preview" &&
+        pathname !== "/preview" && logged &&
         <div className="flex items-center">
           {
             centerHeaderLinks.map((link, i) => {
@@ -56,25 +86,38 @@ const Header = () => {
       <div className="flex gap-4 items-center">
         {
           pathname !== "/preview"
-            ? <>
-              <Link href={"/preview"}>
-                <Button size={"lg"} variant={'outline'} className="px-4 md:px-4 h-11 rounded-lg">
-                  <IconPreview className="sm:hidden block" />
-                  <span className="sm:block hidden">Preview</span>
+            ? logged
+              ? <>
+                <Link href={"/preview"}>
+                  <Button size={"lg"} variant={'outline'} className="max-sm:px-3 px-4 md:px-4 h-11 rounded-lg">
+                    <IconPreview className="sm:hidden block" />
+                    <span className="sm:block hidden">Preview</span>
+                  </Button>
+                </Link>
+                <Button onClick={() => {
+                  logout();
+                  router.push("/login");
+                }} size={"lg"} className="max-sm:px-3 px-4 md:px-4 h-11 rounded-lg flex items-center gap-2">
+                  <IconLogout className=" w-[21px] h-[20px] fill-current" />
+                  <span className="sm:block hidden">Logout</span>
                 </Button>
-              </Link>
-              <Button onClick={() => {
-                logout();
-                router.push("/login");
-              }} size={"lg"} className="px-4 md:px-4 h-11 rounded-lg flex items-center gap-2">
-                <IconLogout className=" w-[21px] h-[20px] fill-current" />
-                <span className="sm:block hidden">Logout</span>
-              </Button>
-            </>
+              </>
+              : <>
+                <Link href={"/login"}>
+                  <Button size={"sm"} variant={'outline'} className="px-4 md:px-4 h-11 rounded-lg">
+                    <span className="sm:block ">Login</span>
+                  </Button>
+                </Link>                
+                <Link href={"/register"}>
+                  <Button size={"sm"} className="px-4 md:px-4 h-11 rounded-lg flex items-center gap-2">
+                    <span className="sm:block ">Register</span>
+                  </Button>
+                </Link>
+              </>
             : <>
-              <Link href={"/preview"}>
-                <Button size={"lg"} className="px-4 max-sm:text-[14px] sm:px-6 h-11 rounded-lg">Share Link</Button>
-              </Link>
+              <Button onClick={hanldeSharingButton}
+                size={"lg"}
+                className="px-4 max-sm:text-[14px] sm:px-6 h-11 rounded-lg">Share Link</Button>
               <Button onClick={() => {
                 logout();
                 router.push("/login");

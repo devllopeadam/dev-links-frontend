@@ -13,7 +13,7 @@ export interface InputProps
   }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, label, icon, error, type, ...props }, ref) => {
+  ({ className, label, icon, error, value, onChange, type, ...props }, ref) => {
     return (
       <div className={`relative w-full flex flex-col gap-2 ${className}`}>
         <label htmlFor={props.id} className={cn("text-gray-800 text-[12px]", {'text-red-500': error})}>{label}</label>
@@ -31,8 +31,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               },
             )}
             ref={ref}
+            value={value} // controlled value from react-hook-form
+            onChange={onChange} // onChange handler from react-hook-form
             {...props}
-            defaultValue={props.defaultValue} // Change this from `value` to `defaultValue`
           />
           {error && <motion.span initial={{opacity: 0, scale: 0.8}} animate={{opacity: 1, scale: 1}} className="absolute text-[14px] text-red-500 font-medium right-3">{error}</motion.span>}
         </div>
