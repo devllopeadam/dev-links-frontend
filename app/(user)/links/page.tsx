@@ -4,10 +4,12 @@ import EmptyLinks from "@/app/components/EmptyLinks";
 import LinksHandler from "@/app/components/LinksHandler";
 import PhoneReview from "@/app/components/PhoneReview";
 import { useUserData } from "@/app/context/UserDataContext";
+import { useUserSession } from "@/app/context/UserSessionContext";
 import useFetchUserData from "@/app/hooks/useFetchUserData";
 
 const Links = () => {
-  const { isLoading } = useFetchUserData();
+  const { userSession } = useUserSession();
+  const { isLoading } = useFetchUserData({ userId: Number(userSession?.userId) });
   const { userData } = useUserData();
 
   return (

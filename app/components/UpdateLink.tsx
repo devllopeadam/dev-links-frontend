@@ -126,13 +126,13 @@ const UpdateLink = ({ updateOpen, setUpdateOpen, linkN }: IProps) => {
             <AlertDialogTitle>Update the link details</AlertDialogTitle>
           </AlertDialogHeader>
           <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-            <Input disabled={false} label="Platform" className="[&>div>input]:bg-white focus-visible:ring-[#e2e8f0]" icon={getGrayIconForPlatform(linkN?.platform!)} value={linkN?.platform} />
+            <Input disabled={false} label="Platform" className="[&>div>input]:bg-white focus-visible:ring-[#e2e8f0]" icon={getGrayIconForPlatform(linkN?.platform!)} value={linkN?.platform} readOnly />
             <Input placeholder="github.com/devllopeadam/" error={errors["link"]?.message!} {...register("link")} icon={'/images/icon-link.svg'} className="[&>div>input]:h-11" label="Update the link" onChange={(e) => handleInputChange(e.target.value)} />
             <AlertDialogFooter>
               <AlertDialogCancel className="h-9 rounded-md px-4 text-[13px]">
                 Cancel
               </AlertDialogCancel>
-              <Button isLoading={isSubmitting} size={'sm'}>Submit</Button>
+              <Button isLoading={isSubmitting} size={'sm'}>Update</Button>
             </AlertDialogFooter>
           </form>
         </AlertDialogContent>

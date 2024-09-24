@@ -20,7 +20,7 @@ const FinalPreview = ({ isLoading }: IProps) => {
 
   return (
     <main className="pt-[50px] flex items-center justify-center mx-auto col-span-2">
-      <div className="bg-white flex flex-col gap-7 pb-8 pt-10 px-5 rounded-xl relative z-50 w-[450px] shadow-lg">
+      <div className="bg-white flex flex-col gap-7 pb-8 pt-10 px-5 rounded-xl relative z-50 w-[350px] sm:w-[450px] shadow-lg">
         {
           userData?.links?.length && userData?.user?.email && userData?.user?.firstName && userData?.user?.lastName
             ? !isLoading &&

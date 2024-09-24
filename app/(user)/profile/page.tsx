@@ -1,10 +1,12 @@
 'use client'
 import PhoneReview from "@/app/components/PhoneReview";
 import ProfileDetailsForm from "@/app/components/ProfileDetailsForm";
+import { useUserSession } from "@/app/context/UserSessionContext";
 import useFetchUserData from "@/app/hooks/useFetchUserData";
 
 const Profile = () => {
-  const { isLoading } = useFetchUserData();
+  const { userSession } = useUserSession();
+  const { isLoading } = useFetchUserData({ userId: Number(userSession?.userId) });
 
   return (
     <>
