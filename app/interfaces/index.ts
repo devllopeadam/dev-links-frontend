@@ -62,14 +62,18 @@ export interface IUserData {
 export type Platform =
   | "Github"
   | "Frontend Mentor"
-  | "Twitter"
+  | "X"
   | "LinkedIn"
   | "Youtube"
   | "Facebook"
   | "Twitch"
   | "Codewars"
   | "FreeCodeCamp"
+  | "LeetCode"
   | "GitLab"
   | "Hashnode"
+  | "HackerRank"
   | "Dev.To"
-  | "Stack Overflow";
+  | "Stack Overflow"
+  | "Medium"
+  | "Codepen";

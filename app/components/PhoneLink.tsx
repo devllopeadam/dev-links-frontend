@@ -1,5 +1,4 @@
 "use client"
-import { motion } from "framer-motion";
 import { platforms_colors } from "../constants";
 import { Link } from "../interfaces";
 interface IconProps {
@@ -21,7 +20,7 @@ const PhoneLink: React.FC<PhoneLinkProps> = ({ platform, link, icon }) => {
       className="group flex items-center justify-between rounded-md px-4 py-3 text-[14px] font-semibold"
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-        {icon ? <img src={icon} alt={`${platform} Icon`} style={{ width: '20px', height: '20px' }} /> : "Adam Jeniah"}
+        {icon ? <img src={icon} alt={`${platform} Icon`} style={{ width: '20px', height: '20px' }} /> : ""}
         <p style={{ margin: 0 }}>{platform}</p>
       </div>
       <svg className="group-hover:translate-x-1 transition-all duration-300" width="16" height="16" fill="none" viewBox="0 0 16 16">

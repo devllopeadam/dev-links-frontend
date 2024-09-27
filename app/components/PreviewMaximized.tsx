@@ -22,7 +22,7 @@ const PreviewMaximized = ({ isOpen, setIsOpen }: IProps) => {
 
   return (
     <AlertDialog open={isOpen} onOpenChange={(isOpen) => setIsOpen(isOpen)}>
-      <AlertDialogContent className="flex flex-col gap-5 w-[90%] lg:max-w-[450px] outline-none rounded-lg">
+      <AlertDialogContent className="flex flex-col gap-5 w-[90%] lg:max-h-[650px] lg:max-w-[450px] outline-none rounded-lg">
         <AlertDialogTitle></AlertDialogTitle>
         <motion.div
           initial={{ opacity: 0, scale: 0.7 }}
@@ -45,7 +45,7 @@ const PreviewMaximized = ({ isOpen, setIsOpen }: IProps) => {
           </motion.div>
           <p className="text-center text-[14px] text-accent-gray">{userData?.user?.email}</p>
         </div>
-        <ScrollArea className="max-h-[415px]">
+        <ScrollArea className="h-[415px]">
           <div className="flex flex-col gap-4 items-center">
             {userData?.links.map((link, i) => (
               <div key={i} className="max-w-full md:max-w-[300px] w-full">

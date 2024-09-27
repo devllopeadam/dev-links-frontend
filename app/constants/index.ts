@@ -9,7 +9,7 @@ import {
 
 import GithubIconGray from "@/public/images/icon-github-gray.svg";
 import FrontEndMentorIconGray from "@/public/images/icon-frontend-mentor-gray.svg";
-import TwitterIconGray from "@/public/images/icon-twitter-gray.svg";
+import XIconGray from "@/public/images/icon-x-gray.svg";
 import LinkedInIconGray from "@/public/images/icon-linkedin-gray.svg";
 import YoutubeIconGray from "@/public/images/icon-youtube-gray.svg";
 import FacebookIconGray from "@/public/images/icon-facebook-gray.svg";
@@ -20,6 +20,10 @@ import GitLabIconGray from "@/public/images/icon-gitlab-gray.svg";
 import HashnodeIconGray from "@/public/images/icon-hashnode-gray.svg";
 import DevToIconGray from "@/public/images/icon-devto-gray.svg";
 import StackOverflowIconGray from "@/public/images/icon-stack-overflow-gray.svg";
+import MediumIconGray from "@/public/images/icon-medium-gray.svg";
+import LeetCodeIconGray from "@/public/images/icon-leetcode-gray.svg";
+import HackerrankIconGray from "@/public/images/icon-hackerrank-gray.svg";
+import CodepenIconGray from "@/public/images/icon-codepen-gray.svg";
 
 export const LOGIN_FORM: ILoginInput[] = [
   {
@@ -87,7 +91,7 @@ export const PROFILE_FORM: IProfileInput[] = [
 export const grayIcons: Record<Platform, () => JSX.Element> = {
   Github: GithubIconGray,
   "Frontend Mentor": FrontEndMentorIconGray,
-  Twitter: TwitterIconGray,
+  X: XIconGray,
   LinkedIn: LinkedInIconGray,
   Youtube: YoutubeIconGray,
   Facebook: FacebookIconGray,
@@ -98,6 +102,10 @@ export const grayIcons: Record<Platform, () => JSX.Element> = {
   Hashnode: HashnodeIconGray,
   "Dev.To": DevToIconGray,
   "Stack Overflow": StackOverflowIconGray,
+  Medium: MediumIconGray,
+  LeetCode: LeetCodeIconGray,
+  HackerRank: HackerrankIconGray,
+  Codepen: CodepenIconGray,
 };
 
 export const platforms: IPlatform[] = [
@@ -108,9 +116,9 @@ export const platforms: IPlatform[] = [
     defaultValue: "https://frontendmentor.io/profile/",
   },
   {
-    icon: TwitterIconGray,
-    name: "Twitter",
-    defaultValue: "https://twitter.com/",
+    icon: XIconGray,
+    name: "X",
+    defaultValue: "https://x.com/",
   },
   {
     icon: LinkedInIconGray,
@@ -162,13 +170,32 @@ export const platforms: IPlatform[] = [
     name: "Stack Overflow",
     defaultValue: "https://stackoverflow.com/users/",
   },
+  {
+    icon: MediumIconGray,
+    name: "Medium",
+    defaultValue: "https://medium.com/@",
+  },
+  {
+    icon: LeetCodeIconGray,
+    name: "LeetCode",
+    defaultValue: "https://leetcode.com/",
+  },
+  {
+    icon: HackerrankIconGray,
+    name: "HackerRank",
+    defaultValue: "https://hackerrank.com/profile/",
+  },
+  {
+    icon: CodepenIconGray,
+    name: "Codepen",
+    defaultValue: "https://codepen.io/",
+  },
 ];
 
-// Define platform-specific base URLs
 export const platform_bases: Record<Platform, string> = {
   Github: "https://github.com/",
   "Frontend Mentor": "https://frontendmentor.io/profile/",
-  Twitter: "https://twitter.com/",
+  X: "https://X.com/",
   LinkedIn: "https://linkedin.com/in/",
   Youtube: "https://youtube.com/@",
   Facebook: "https://facebook.com/",
@@ -179,12 +206,16 @@ export const platform_bases: Record<Platform, string> = {
   Hashnode: "https://hashnode.com/@",
   "Dev.To": "https://dev.to/",
   "Stack Overflow": "https://stackoverflow.com/users/",
+  Medium: "https://medium.com/@",
+  LeetCode: "https://leetcode.com/",
+  HackerRank: "https://hackerrank.com/profile/",
+  Codepen: "https://codepen.io/",
 };
 
 export const platforms_colors: Record<Platform, string> = {
   Github: "#333333",
   "Frontend Mentor": "#FAFAFA",
-  Twitter: "#1DA1F2",
+  X: "#1DA1F2",
   LinkedIn: "#0077B5",
   Youtube: "#FF0000",
   Facebook: "#1877F2",
@@ -195,13 +226,17 @@ export const platforms_colors: Record<Platform, string> = {
   Hashnode: "#2962FF",
   "Dev.To": "#0A0A0A",
   "Stack Overflow": "#F48024",
+  Medium: "#12100E",
+  LeetCode: "#2e2e2e",
+  HackerRank: "#39424E",
+  Codepen: "#7fcca6",
 };
 
 export function getIconForPlatform(platform: Platform) {
   const icons = {
     Github: "/images/icon-github.svg",
     "Frontend Mentor": "/images/icon-frontend-mentor.svg",
-    Twitter: "/images/icon-twitter.svg",
+    X: "/images/icon-x.svg",
     LinkedIn: "/images/icon-linkedin.svg",
     Youtube: "/images/icon-youtube.svg",
     Facebook: "/images/icon-facebook.svg",
@@ -212,6 +247,10 @@ export function getIconForPlatform(platform: Platform) {
     GitLab: "/images/icon-gitlab.svg",
     Hashnode: "/images/icon-hashnode.svg",
     "Stack Overflow": "/images/icon-stack-overflow.svg",
+    Medium: "/images/icon-medium.svg",
+    LeetCode: "/images/icon-leetcode.svg",
+    HackerRank: "/images/icon-hackerrank.svg",
+    Codepen: "/images/icon-codepen.svg",
   };
 
   return icons[platform];
@@ -220,7 +259,7 @@ export function getGrayIconForPlatform(platform: Platform) {
   const icons = {
     Github: "/images/icon-github-gray.svg",
     "Frontend Mentor": "/images/icon-frontend-mentor-gray.svg",
-    Twitter: "/images/icon-twitter-gray.svg",
+    X: "/images/icon-X-gray.svg",
     LinkedIn: "/images/icon-linkedin-gray.svg",
     Youtube: "/images/icon-youtube-gray.svg",
     Facebook: "/images/icon-facebook-gray.svg",
@@ -231,6 +270,10 @@ export function getGrayIconForPlatform(platform: Platform) {
     GitLab: "/images/icon-gitlab-gray.svg",
     Hashnode: "/images/icon-hashnode-gray.svg",
     "Stack Overflow": "/images/icon-stack-overflow-gray.svg",
+    Medium: "/images/icon-medium-gray.svg",
+    LeetCode: "/images/icon-leetcode-gray.svg",
+    HackerRank: "/images/icon-hackerrank-gray.svg",
+    Codepen: "/images/icon-codepen-gray.svg",
   };
 
   return icons[platform];

@@ -69,7 +69,7 @@ const LinksHandler = () => {
         await updateLinksInBackend();
       };
 
-      const timeoutId = setTimeout(updateLinks, 1000);
+      const timeoutId = setTimeout(updateLinks, 500);
 
       return () => clearTimeout(timeoutId);
     }
