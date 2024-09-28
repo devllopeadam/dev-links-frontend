@@ -10,6 +10,8 @@ import toast from "react-hot-toast";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { useUserSession } from "../context/UserSessionContext";
+import { AxiosError } from "axios";
+import { IErrorResponse } from "../interfaces";
 
 interface IFormData {
   firstName: string,
@@ -60,7 +62,16 @@ const ProfileForm = () => {
         }, 600);
       }
     } catch (error) {
-      console.log(error)
+      const errorObj = error as AxiosError<IErrorResponse>;
+      toast.error(`${errorObj.response?.data.error.message}`, {
+        position: "top-center",
+        duration: 1500,
+        style: {
+          backgroundColor: "white",
+          color: "black",
+          width: "fit-content",
+        },
+      });
     }
   }
 
