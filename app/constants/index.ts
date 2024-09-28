@@ -195,7 +195,7 @@ export const platforms: IPlatform[] = [
 export const platform_bases: Record<Platform, string> = {
   Github: "https://github.com/",
   "Frontend Mentor": "https://frontendmentor.io/profile/",
-  X: "https://X.com/",
+  X: "https://x.com/",
   LinkedIn: "https://linkedin.com/in/",
   Youtube: "https://youtube.com/@",
   Facebook: "https://facebook.com/",
@@ -283,3 +283,6 @@ export function getLastOrder(userData: IUserData) {
   const { links } = userData;
   return links.length ? Math.max(...links.map((link) => link.order)) : 0;
 }
+
+export const isActive = (label: string, pathname: string) =>
+  label === pathname.slice(1);

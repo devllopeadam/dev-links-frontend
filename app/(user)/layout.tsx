@@ -2,6 +2,8 @@
 import React from "react";
 import Header from "../components/Header";
 import { usePathname } from 'next/navigation';
+import HeaderPreview from "../components/HeaderPreview";
+import HeaderProfiles from "../components/HeaderProfiles";
 export const isActive = (label: string, pathname: string) => label === pathname.slice(1);
 
 const UserLayout = ({ children }: { children: React.ReactNode }) => {
@@ -12,7 +14,9 @@ const UserLayout = ({ children }: { children: React.ReactNode }) => {
       {(pathname === "/preview" || pathname.includes("profiles")) && (
         <div className="absolute top-0 left-0 bg-accent-purple w-full h-[330px] rounded-b-[35px]" />
       )}
-      <Header />
+      {
+        (pathname !== "/preview" && !pathname.includes("profiles")) ? <Header /> : !pathname.includes("profiles") ? <HeaderPreview /> : <HeaderProfiles />
+      } 
       {children}
     </div>
   );

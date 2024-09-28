@@ -1,16 +1,15 @@
-import { motion } from "framer-motion";
-import { useUserData } from "../context/UserDataContext";
 import CloseIcon from "@/public/images/icon-close.svg";
+import { motion } from "framer-motion";
+import { getIconForPlatform } from "../constants";
+import { useUserData } from "../context/UserDataContext";
+import DataNotFoundPlaceholder from "./DataNotFoundPlaceholder";
+import PhoneLink from "./PhoneLink";
 import {
   AlertDialog,
   AlertDialogContent,
-  AlertDialogHeader,
   AlertDialogTitle
 } from "./ui/alert-dialog";
-import PhoneLink from "./PhoneLink";
-import { getIconForPlatform } from "../constants";
 import { ScrollArea } from "./ui/scroll-area";
-import DataNotFoundPlaceholder from "./DataNotFoundPlaceholder";
 
 interface IProps {
   isOpen: boolean;
@@ -22,7 +21,7 @@ const PreviewMaximized = ({ isOpen, setIsOpen }: IProps) => {
 
   return (
     <AlertDialog open={isOpen} onOpenChange={(isOpen) => setIsOpen(isOpen)}>
-      <AlertDialogContent className="flex flex-col gap-5 w-[90%] lg:max-h-[650px] lg:max-w-[450px] outline-none rounded-lg">
+      <AlertDialogContent className="flex flex-col gap-5 w-[90%] h-auto max-h-[650px] lg:max-w-[450px] outline-none rounded-lg">
         <AlertDialogTitle></AlertDialogTitle>
         <motion.div
           initial={{ opacity: 0, scale: 0.7 }}
@@ -45,7 +44,7 @@ const PreviewMaximized = ({ isOpen, setIsOpen }: IProps) => {
           </motion.div>
           <p className="text-center text-[14px] text-accent-gray">{userData?.user?.email}</p>
         </div>
-        <ScrollArea className="h-[415px]">
+        <ScrollArea className={`${userData?.links?.length! > 7 && "h-[415px]"}`}>
           <div className="flex flex-col gap-4 items-center">
             {userData?.links.map((link, i) => (
               <div key={i} className="max-w-full md:max-w-[300px] w-full">
