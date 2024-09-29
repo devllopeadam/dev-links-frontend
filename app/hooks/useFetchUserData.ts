@@ -16,6 +16,7 @@ const useFetchUserData = ({ userId }: IProps) => {
       axiosInstance.get(`/users/${userId}?populate=*`).then((response) => {
         const { status, data } = response;
         if (status === 200) {
+          console.log(data);
           setIsLoading(false);
           const userLinks: Link[] = data.links.map((linkData: any) => ({
             id: linkData.id,
@@ -28,9 +29,7 @@ const useFetchUserData = ({ userId }: IProps) => {
             ...prev,
             user: {
               ...prev!.user,
-              image: data?.imageUrl
-                ? `http://localhost:1337${data.imageUrl}`
-                : undefined,
+              image: data?.imageUrl ?? undefined,
               firstName: data?.firstName ?? "",
               lastName: data?.lastName ?? "",
               email: data?.email ?? "",

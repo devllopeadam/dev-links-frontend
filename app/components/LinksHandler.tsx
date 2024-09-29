@@ -20,6 +20,7 @@ const LinksHandler = () => {
   }, [userData]);
 
   const updateLinksInBackend = async () => {
+    if (!links || !userSession) return;
     try {
       const requests: Promise<AxiosResponse<any>>[] = links?.map(link =>
         axiosInstance.put(`/links/${link.id}`, {
