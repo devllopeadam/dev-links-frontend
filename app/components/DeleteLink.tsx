@@ -5,6 +5,7 @@ import axiosInstance from '../config/axios.config';
 import { useUserData } from '../context/UserDataContext';
 import { Link } from '../interfaces';
 import toast from 'react-hot-toast';
+import { useUserSession } from '../context/UserSessionContext';
 
 interface IProps {
   open: boolean;
@@ -15,11 +16,16 @@ interface IProps {
 const DeleteLink = ({ id, open, setOpen }: IProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const { userData, setUserData } = useUserData();
+  const { userSession } = useUserSession();
 
   const handleRemoveLink = async () => {
     try {
       setIsLoading(true);
-      const { status } = await axiosInstance.delete(`/links/${id}`);
+      const { status } = await axiosInstance.delete(`/links/${id}`, {
+        headers: {
+          Authorization: `Bearer ${userSession?.jwt}`,
+        },
+      });
       if (status === 200) {
         const updatedLinks = userData?.links.filter(link => link.id !== id);
         setUserData(prev => ({

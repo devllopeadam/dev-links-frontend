@@ -34,7 +34,11 @@ const ProfileForm = () => {
 
   const onSubmit: SubmitHandler<IFormData> = async (data) => {
     try {
-      const { status, data: res } = await axiosInstance.put(`/users/${userSession.userId}`, data);
+      const { status, data: res } = await axiosInstance.put(`/users/${userSession.userId}`, data, {
+        headers: {
+          Authorization: `Bearer ${userSession?.jwt}`,
+        },
+      });
       if (status === 200) {
         setUserData(prev => ({
           ...prev,
