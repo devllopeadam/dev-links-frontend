@@ -1,7 +1,6 @@
-"use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
+import { redirect } from "next/navigation";
 import { isAuthenticated } from "../cookies";
 
 
@@ -11,13 +10,13 @@ export default async function AuthLayout({
   children: React.ReactNode;
 }>) {
   const isAuth = await isAuthenticated();
-  useEffect(() => {
-    if (isAuth) {
-      setTimeout(() => {
-        window.location.href = "/links";
-      }, 1000);
-    }
-  }, [isAuth]);
+
+  if (isAuth) {
+    setTimeout(() => {
+      redirect("/links");
+    }, 1000);
+  }
+
   return (
     <main className="bg-[#fafafa] flex items-center flex-col gap-10 w-full min-h-screen">
       <Link href={"/links"}>
