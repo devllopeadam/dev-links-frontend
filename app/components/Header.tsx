@@ -6,11 +6,10 @@ import IconProfileDetails from "@/public/images/icon-profile-details-header.svg"
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from 'next/navigation';
-import { useUserData } from "../context/UserDataContext";
+import { isActive } from "../constants";
 import { logout } from "../cookies";
-import useProfileReady from "../hooks/useProfileReady";
 import { Button } from "./ui/button";
-import { isActive } from "../(user)/layout";
+
 
 
 const centerHeaderLinks = [

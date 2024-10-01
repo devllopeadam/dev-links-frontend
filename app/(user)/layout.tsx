@@ -4,8 +4,6 @@ import Header from "../components/Header";
 import { usePathname } from 'next/navigation';
 import HeaderPreview from "../components/HeaderPreview";
 import HeaderProfiles from "../components/HeaderProfiles";
-export const isActive = (label: string, pathname: string) => label === pathname.slice(1);
-
 const UserLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
 
