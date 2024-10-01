@@ -46,7 +46,6 @@ const DeleteLink = ({ id, open, setOpen }: IProps) => {
           width: "fit-content",
         },
       });
-      setOpen(false);
     } catch (error) {
       toast.error('Failed to remove the link', {
         position: "top-center",
@@ -59,6 +58,7 @@ const DeleteLink = ({ id, open, setOpen }: IProps) => {
       });
     } finally {
       setIsLoading(false);
+      setOpen(false);
     }
   }
   return (
