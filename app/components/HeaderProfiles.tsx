@@ -45,7 +45,7 @@ const HeaderProfiles = () => {
     <header className="flex items-center justify-between bg-white p-4 rounded-xl shadow-sm col-span-2 relative z-10">
       {
         pathname.includes("profiles")
-          ? <Link href={"/links"}>
+          ? <Link href={"/"}>
             <Image src="/images/logo-devlinks-large.svg" width={145} height={50} alt="Dev Links Logo" className="hidden sm:block md:w-[145px] w-[135px]" />
             <Image src="/images/logo-devlinks-small.svg" width={35} height={50} alt="Dev Links Logo" className="sm:hidden block" />
           </Link>

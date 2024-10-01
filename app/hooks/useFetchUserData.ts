@@ -22,6 +22,7 @@ const useFetchUserData = ({ userId }: IProps) => {
         .then((response) => {
           const { status, data } = response;
           if (status === 200) {
+            console.log(data);
             setIsLoading(false);
             const userLinks: Link[] = data.links.map((linkData: any) => ({
               id: linkData.id,

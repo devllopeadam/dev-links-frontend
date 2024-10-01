@@ -51,7 +51,7 @@ export default function Login() {
         fillCookies(data.jwt, data.user.id);
         setUserSession({ jwt: data.jwt, userId: data.user.id });
         setTimeout(() => {
-          router.push("/links");
+          router.push("/");
         }, 1000);
       }
     } catch (error) {

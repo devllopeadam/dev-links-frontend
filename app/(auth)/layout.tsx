@@ -13,13 +13,13 @@ export default async function AuthLayout({
 
   if (isAuth) {
     setTimeout(() => {
-      redirect("/links");
+      redirect("/");
     }, 1000);
   }
 
   return (
     <main className="bg-[#fafafa] flex items-center flex-col gap-10 w-full min-h-screen">
-      <Link href={"/links"}>
+      <Link href={"/"}>
         <Image src="/images/logo-devlinks-large.svg" width={185} height={50} alt="Dev Links Logo" className="mt-12" />
       </Link>
       {children}

@@ -6,6 +6,7 @@ import PhoneReview from "@/app/components/PhoneReview";
 import { useUserData } from "@/app/context/UserDataContext";
 import { useUserSession } from "@/app/context/UserSessionContext";
 import useFetchUserData from "@/app/hooks/useFetchUserData";
+import Header from "./components/Header";
 
 const Links = () => {
   const { userSession } = useUserSession();
@@ -13,7 +14,8 @@ const Links = () => {
   const { userData } = useUserData();
 
   return (
-    <>
+    <div className="relative 2xl:max-w-[1600px] mx-auto p-4 sm:p-6 w-full min-h-screen grid grid-rows-[80px_1fr] grid-cols-1 lg:gap-6 gap-y-4 sm:gap-y-6 bg-[#fafafa] lg:grid-cols-[1.5fr_2fr]">
+      <Header />
       <div className="bg-white hidden rounded-xl shadow-sm lg:flex items-center justify-center py-14">
         {
           !isLoading && userData?.user ?
@@ -58,7 +60,7 @@ const Links = () => {
             </>
         }
       </div>
-    </>
+    </div>
   )
 };
 
