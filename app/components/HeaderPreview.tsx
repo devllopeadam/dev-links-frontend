@@ -26,7 +26,21 @@ const HeaderPreview = () => {
 
   const hanldeSharingButton = useCallback(() => {
     if (ready) {
-      window.open(`profiles/${userData?.user.id}`, "_blank");
+      const baseUrl = window.location.origin;
+      const profileUrl = `${baseUrl}/profiles/${userData?.user.id}`;
+
+      navigator.clipboard.writeText(profileUrl);
+      toast.success('Link Copied to clip board', {
+        position: "top-center",
+        duration: 2000,
+        icon: "📕",
+        style: {
+          backgroundColor: "white",
+          color: "black",
+          width: "fit-content",
+          textAlign: "center",
+        },
+      });
     } else {
       toast.error('fill out your necessary info and at least one link', {
         position: "top-center",

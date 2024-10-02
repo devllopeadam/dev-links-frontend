@@ -150,10 +150,10 @@ const AddLink = () => {
   return (
     <div className="flex flex-col gap-5">
       <AlertDialog open={open} onOpenChange={(open) => setOpen(open)}>
-        <AlertDialogTrigger asChild>
+        <AlertDialogTrigger asChild className="w-full">
           <Button onClick={() => setOpen(true)} variant={'outline'}>+ Add new link</Button>
         </AlertDialogTrigger>
-        <AlertDialogContent className="flex flex-col gap-4">
+        <AlertDialogContent className="flex flex-col gap-4 max-sm:w-[90%] rounded-md">
           <AlertDialogHeader>
             <AlertDialogTitle>Enter the link details</AlertDialogTitle>
           </AlertDialogHeader>
@@ -175,9 +175,9 @@ const AddLink = () => {
               </SelectContent>
             </Select>
             <Input disabled={!platform} placeholder="github.com/devllopeadam/" error={errors["link"]?.message!} {...register("link")} icon={'/images/icon-link.svg'} className="[&>div>input]:h-11" label="Enter the link" onChange={(e) => handleInputChange(e.target.value)} />
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <Button isLoading={isSubmitting}>Submit</Button>
+            <AlertDialogFooter className='max-sm:flex gap-4 flex-row justify-end'>
+              <AlertDialogCancel className="h-9 rounded-md px-4 text-[13px] mt-0">Cancel</AlertDialogCancel>
+              <Button isLoading={isSubmitting} size={'sm'}>Submit</Button>
             </AlertDialogFooter>
           </form>
         </AlertDialogContent>

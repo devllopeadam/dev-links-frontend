@@ -119,17 +119,17 @@ const UpdateLink = ({ updateOpen, setUpdateOpen, linkN }: IProps) => {
   }
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5 max-sm:w-[90%]">
       <AlertDialog open={updateOpen} onOpenChange={(updateOpen) => setUpdateOpen(updateOpen)}>
-        <AlertDialogContent className="flex flex-col gap-4">
+        <AlertDialogContent className="flex flex-col gap-4 max-sm:w-[90%] rounded-md">
           <AlertDialogHeader>
             <AlertDialogTitle>Update the link details</AlertDialogTitle>
           </AlertDialogHeader>
           <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
             <Input disabled={false} label="Platform" className="[&>div>input]:bg-white focus-visible:ring-[#e2e8f0]" icon={getGrayIconForPlatform(linkN?.platform!)} value={linkN?.platform} readOnly />
             <Input placeholder="github.com/devllopeadam/" error={errors["link"]?.message!} {...register("link")} icon={'/images/icon-link.svg'} className="[&>div>input]:h-11" label="Update the link" onChange={(e) => handleInputChange(e.target.value)} />
-            <AlertDialogFooter>
-              <AlertDialogCancel className="h-9 rounded-md px-4 text-[13px]">
+            <AlertDialogFooter className='max-sm:flex gap-4 flex-row justify-end'>
+              <AlertDialogCancel className="h-9 rounded-md px-4 text-[13px] mt-0">
                 Cancel
               </AlertDialogCancel>
               <Button isLoading={isSubmitting} size={'sm'}>Update</Button>
