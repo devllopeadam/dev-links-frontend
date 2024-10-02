@@ -63,11 +63,11 @@ const DeleteLink = ({ id, open, setOpen }: IProps) => {
   }
   return (
     <AlertDialog open={open} onOpenChange={(open) => setOpen(open)}>
-      <AlertDialogContent className="flex flex-col gap-4">
+      <AlertDialogContent className="flex flex-col gap-4 max-sm:w-[90%] rounded-md">
         <AlertDialogHeader>
           <AlertDialogTitle>Do you want to remove this link?</AlertDialogTitle>
         </AlertDialogHeader>
-        <AlertDialogFooter>
+        <AlertDialogFooter className='max-sm:flex gap-4 flex-row justify-end'>
           <Button variant={'secondary'} size={'sm'} onClick={() => setOpen(false)}>No</Button>
           <Button variant={'destructive'} size={'sm'} onClick={handleRemoveLink} isLoading={isLoading}>Yes</Button>
         </AlertDialogFooter>
