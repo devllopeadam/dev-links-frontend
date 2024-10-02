@@ -16,13 +16,7 @@ const HeaderPreview = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { userData } = useUserData();
-  const { ready } = useProfileReady()
-  const [logged, setLogged] = useState(false);
-
-
-  useEffect(() => {
-    isAuthenticated().then(x => setLogged(x));
-  }, [])
+  const { ready } = useProfileReady();
 
   const hanldeSharingButton = useCallback(() => {
     if (ready) {
