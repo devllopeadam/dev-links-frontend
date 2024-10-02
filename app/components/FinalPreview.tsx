@@ -4,10 +4,12 @@ import { getIconForPlatform } from "../constants";
 import { useUserData } from "../context/UserDataContext";
 import PhoneLink from "./PhoneLink";
 import MaximizeIcon from "@/public/images/icon-maximize.svg";
+import QrCodeIcon from "@/public/images/icon-qrcode.svg";
 import { useState } from "react";
 import Hover from "./Hover";
 import PreviewMaximized from "./PreviewMaximized";
 import DataNotFoundPlaceholder from "./DataNotFoundPlaceholder";
+import QrCodeGenerator from "./QrCodeGenerator";
 
 interface IProps {
   isLoading: boolean;
@@ -15,8 +17,9 @@ interface IProps {
 
 const FinalPreview = ({ isLoading }: IProps) => {
   const { userData } = useUserData();
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<"maximize" | "qrcode" | null>(null);
   const [openPopUp, setOpenPopUp] = useState<boolean>(false);
+  const [qrCodeVisible, setQrCodeVisible] = useState(false);
 
   return (
     <main className="pt-[50px] flex items-center justify-center mx-auto col-span-2">
@@ -24,20 +27,36 @@ const FinalPreview = ({ isLoading }: IProps) => {
         {
           userData?.links?.length && userData?.user?.email && userData?.user?.firstName && userData?.user?.lastName
             ? !isLoading &&
-            <motion.div
-              initial={{ opacity: 0, scale: 0.7 }}
-              animate={{ opacity: 1, scale: 1 }}
-              onMouseEnter={() => setOpen(true)}
-              onMouseLeave={() => setOpen(false)}
-              onClick={() => {
-                setTimeout(() => {
-                  setOpenPopUp(true);
-                }, 200);
-              }}
-              className="flex items-center justify-center bg-accent-purple/10 w-8 h-8 p-1 absolute top-5 right-5 rounded-md cursor-pointer transition-all duration-300 hover:bg-accent-purple/15 hover:shadow-sm">
-              <MaximizeIcon className="text-accent-purple" />
-              <Hover text="Maximize" isOpen={open} />
-            </motion.div>
+            <div className="flex justify-between items-center w-full">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.7 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  onMouseEnter={() => setOpen("maximize")}
+                  onMouseLeave={() => setOpen(null)}
+                  onClick={() => {
+                    setTimeout(() => {
+                      setOpenPopUp(true);
+                    }, 200);
+                  }}
+                  className="flex items-center justify-center bg-accent-purple/10 w-8 h-8 p-1 absolute top-5 right-5 rounded-md cursor-pointer transition-all duration-300 hover:bg-accent-purple/15 hover:shadow-sm">
+                  <MaximizeIcon className="text-accent-purple" />
+                  <Hover text="Maximize" isOpen={open === "maximize"} />
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.7 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  onMouseEnter={() => setOpen("qrcode")}
+                  onMouseLeave={() => setOpen(null)}
+                  onClick={() => {
+                    setTimeout(() => {
+                      setQrCodeVisible(true);
+                    }, 200);
+                  }}
+                  className="flex items-center justify-center bg-accent-purple/10 w-8 h-8 p-1 absolute top-5 left-5 rounded-md cursor-pointer transition-all duration-300 hover:bg-accent-purple/15 hover:shadow-sm">
+                  <QrCodeIcon className="text-accent-purple" />
+                  <Hover text="Share Your Qr Code" isOpen={open === "qrcode"} />
+                </motion.div>
+              </div>
             : null
         }
         <div>
@@ -97,6 +116,7 @@ const FinalPreview = ({ isLoading }: IProps) => {
         }
       </div>
       <PreviewMaximized isOpen={openPopUp} setIsOpen={setOpenPopUp} />
+      <QrCodeGenerator isOpen={qrCodeVisible} setIsOpen={setQrCodeVisible} />
     </main>
   );
 }

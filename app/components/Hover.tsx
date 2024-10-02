@@ -10,9 +10,9 @@ const Hover = ({ text, isOpen }: IProps) => {
     <motion.div
       initial={{ scale: 0.7, y: 10 }}
       animate={{ scale: 1, y: 0 }}
-      className="bg-white p-1 px-2 rounded-md shadow-sm absolute -top-10 -left-1/2 -translate-x-1/2 text-black text-[14px] font-medium">
+      className="bg-white text-nowrap p-1 px-2 rounded-md shadow-sm absolute -top-10 -left-1/2 -translate-x-1/2 text-black text-[14px] font-medium">
       {text}
-    </motion.div>
+    </motion.div> 
   )
 }
 
