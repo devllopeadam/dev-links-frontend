@@ -1,5 +1,5 @@
 import { Reorder, useDragControls, useMotionValue } from "framer-motion";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { getGrayIconForPlatform } from "../constants";
 import { Link } from "../interfaces";
 import DeleteLink from "./DeleteLink";
@@ -20,6 +20,13 @@ const CustmizeLink = ({ item, hashId }: IProps) => {
   const [open, setOpen] = useState(false);
   const [updateOpen, setUpdateOpen] = useState(false);
 
+  const updateOpenChange = useCallback((v: boolean) => {
+    setUpdateOpen(v);
+  }, [updateOpen]);
+
+  const deleteOpenChange = useCallback((v: boolean) => {
+    setOpen(v);
+  }, [open]);
 
   return (
     <Reorder.Item
@@ -40,11 +47,11 @@ const CustmizeLink = ({ item, hashId }: IProps) => {
         <Input disabled={false} readOnly label="Link" className="[&>div>input]:bg-white focus-visible:ring-[#e2e8f0]" icon={"/images/icon-link.svg"} value={link} />
       </div>
       <div className="flex items-center gap-2 self-end">
-        <Button className="font-semibold" size={'sm'} onClick={() => setUpdateOpen(true)}>Update</Button>
-        <Button variant={'destructive'} size={'sm'} className="font-semibold" onClick={() => setOpen(true)}>Remove</Button>
+        <Button className="font-semibold" size={'sm'} onClick={() => updateOpenChange(true)}>Update</Button>
+        <Button variant={'destructive'} size={'sm'} className="font-semibold" onClick={() => deleteOpenChange(true)}>Remove</Button>
       </div>
-      <DeleteLink open={open} setOpen={setOpen} id={id} />
-      <UpdateLink updateOpen={updateOpen} setUpdateOpen={setUpdateOpen} linkN={{ platform, link, order, id }} />
+      <DeleteLink open={open} setOpen={deleteOpenChange} id={id} />
+      <UpdateLink updateOpen={updateOpen} setUpdateOpen={updateOpenChange} linkN={{ platform, link, order, id }} />
     </Reorder.Item>
   )
 }

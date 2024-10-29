@@ -76,4 +76,4 @@ const DeleteLink = ({ id, open, setOpen }: IProps) => {
   );
 }
 
-export default DeleteLink
+export default React.memo(DeleteLink);

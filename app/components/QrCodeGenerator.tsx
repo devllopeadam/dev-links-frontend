@@ -6,7 +6,7 @@ import {
   AlertDialogContent,
   AlertDialogTitle
 } from "./ui/alert-dialog";
-import { QRCodeCanvas } from "qrcode.react"; // Change to QRCodeCanvas to access canvas methods
+import { QRCodeCanvas } from "qrcode.react";
 import { useUserData } from "../context/UserDataContext";
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
@@ -20,7 +20,7 @@ interface IProps {
 const QrCodeGenerator = ({ isOpen, setIsOpen }: IProps) => {
   const { userData } = useUserData();
   const [profileUrl, setProfileUrl] = useState("");
-  const qrRef = useRef<HTMLCanvasElement>(null); // Reference to the QR code canvas
+  const qrRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const baseUrl = window.location.origin;

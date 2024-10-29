@@ -55,7 +55,7 @@ const PhoneReview = () => {
             r="48"
             stroke="#633CFF"
             strokeWidth="4"
-            fill="url(#avatar)" // Use the pattern as fill for the circle
+            fill="url(#avatar)"
           ></motion.circle>
         </>
       ) : (

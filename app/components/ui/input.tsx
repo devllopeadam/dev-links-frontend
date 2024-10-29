@@ -31,8 +31,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               },
             )}
             ref={ref}
-            value={value} // controlled value from react-hook-form
-            onChange={onChange} // onChange handler from react-hook-form
+            value={value}
+            onChange={onChange}
             {...props}
           />
           {error && <motion.span initial={{opacity: 0, scale: 0.8}} animate={{opacity: 1, scale: 1}} className="absolute text-[14px] text-red-500 font-medium right-3">{error}</motion.span>}

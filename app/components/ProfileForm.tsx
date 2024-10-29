@@ -43,7 +43,7 @@ const ProfileForm = () => {
         setUserData(prev => ({
           ...prev,
           user: {
-            ...prev?.user, // Keep the other properties in user object
+            ...prev?.user,
             image: prev?.user?.image,
             firstName: data?.firstName,
             lastName: data?.lastName,

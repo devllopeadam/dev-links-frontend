@@ -58,7 +58,6 @@ export default function Register() {
           width: "fit-content",
         },
       });
-      console.log(error);
     }
   }
 

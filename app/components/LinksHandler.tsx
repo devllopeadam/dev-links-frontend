@@ -39,7 +39,7 @@ const LinksHandler = () => {
       if (responses.every(res => res.status === 200)) {
         setUserData(prev => ({
           ...prev!,
-          links: links!, // Update the local state with reordered links
+          links: links!, 
         }));
       }
     } catch (error) {
@@ -61,7 +61,7 @@ const LinksHandler = () => {
       order: index + 1,
     }));
 
-    setLinks(updatedLinks); // Update state with reordered links
+    setLinks(updatedLinks);
   };
 
   useEffect(() => {
