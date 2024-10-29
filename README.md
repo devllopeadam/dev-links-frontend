@@ -1,6 +1,6 @@
 <div style="text-align: center">
 
-![DevLinks](./public/images/logo-devlinks-large.svg)
+![DevLinks](./public/images/logo-devlinks-readme.svg)
 
 </div>
 DevLinks is a customizable link-sharing platform where users can easily manage and share their professional links, projects, and social profiles on a single page. With a QR code for each profile, users can share and access their links with ease. This application leverages modern technologies such as
