@@ -49,7 +49,7 @@ export const profileSchema = yup
   .required();
 
 export const isValidURLWithUsername = (value: string, base: string) => {
-  if (!value.startsWith(base)) return false; // Must start with the base URL
-  const path = value.slice(base.length); // Extract the part after the base URL
-  return path.length > 4 && !path.includes("/") && path !== ""; // Ensure there is some path and it's valid
+  if (!value.startsWith(base)) return false;
+  const path = value.slice(base.length);
+  return path.length > 4 && !path.includes("/") && path !== "";
 };

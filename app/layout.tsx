@@ -24,7 +24,7 @@ export default function RootLayout({
       <head>
         <link
           rel="icon"
-          href="/favicon.png"
+          href="/favicon.svg"
           type="image/<generated>"
           sizes="<generated>"
         />

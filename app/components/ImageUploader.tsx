@@ -17,7 +17,7 @@ export default function ImageUploader() {
         setUserData(prev => ({
           ...prev,
           user: {
-            ...prev!.user, // Keep the other properties in user object
+            ...prev!.user,
             image: reader.result as string,
             firstName: prev?.user?.firstName,
             lastName: prev?.user?.lastName,
@@ -35,32 +35,28 @@ export default function ImageUploader() {
   const uploadToServer = async (file: File) => {
     setIsLoading(true);
     const formData = new FormData();
-    formData.append('files', file); // Append the actual file object
+    formData.append('files', file);
     try {
       const { status, data: uploadResponse } = await axiosInstance.post("/upload", formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${userSession.jwt}`, // Include authorization if needed
+          Authorization: `Bearer ${userSession.jwt}`,
         },
       });
 
       if (status === 200) {
-        const uploadedImage = uploadResponse[0]; // Access the first uploaded file
-        const imageUrl = uploadedImage.url; // Get the URL of the uploaded image
+        const uploadedImage = uploadResponse[0];
+        const imageUrl = uploadedImage.url;
 
-        // Step 2: Update the user's profile with the image URL
         const updateResponse = await axiosInstance.put(`/users/${userSession.userId}`, {
-          imageUrl: imageUrl, // Update the imageUrl field in your model
+          imageUrl: imageUrl,
         }, {
           headers: {
             Authorization: `Bearer ${userSession.jwt}`,
           },
         });
 
-        if (updateResponse.status === 200) {
-          console.log("User profile updated successfully with the image URL");
-        } else {
-          console.log('Failed to update user profile with image URL');
+        if (updateResponse.status !== 200) {
           setError('Failed to update user profile with image URL');
         }
       }

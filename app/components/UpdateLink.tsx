@@ -20,6 +20,7 @@ import {
 } from "./ui/alert-dialog";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import React from "react";
 
 
 interface IFormData {
@@ -141,4 +142,4 @@ const UpdateLink = ({ updateOpen, setUpdateOpen, linkN }: IProps) => {
   )
 }
 
-export default UpdateLink;
+export default React.memo(UpdateLink);

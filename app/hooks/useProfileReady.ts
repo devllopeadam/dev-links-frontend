@@ -7,14 +7,14 @@ const useProfileReady = () => {
 
   useEffect(() => {
     const isProfileIncomplete =
-      !userData || // Ensure userData exists
-      (userData.links?.length || 0) < 1 || // Ensure links is an array and has at least one item
+      !userData ||
+      (userData.links?.length || 0) < 1 ||
       !userData.user.firstName ||
       !userData.user.lastName ||
       !userData.user.email;
 
     setReady(!isProfileIncomplete);
-  }, [userData]); // Dependency array ensures this effect runs when userData changes
+  }, [userData]);
 
   return { ready };
 };
