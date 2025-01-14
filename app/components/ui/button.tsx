@@ -47,8 +47,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({ className, va
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}
-        disabled={isLoading}
-      >
+        disabled={isLoading}>
         {isLoading ? (
           <svg
             className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
